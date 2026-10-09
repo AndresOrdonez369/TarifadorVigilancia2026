@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f2742">
 <title>Tarifador Vigilancia 2026</title>
 <meta name="description" content="Cotizador de servicios de vigilancia y seguridad privada 2026 con tarifas Supervigilancia, estructura de nómina y análisis de utilidad.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +16,7 @@
   --ok:#1d8048; --ok-soft:#e5f5ec; --warn:#a86a12; --warn-soft:#fdf3e1; --bad:#b9322a; --bad-soft:#fbeaea;
   --c1:#1e5aa8; --c2:#4f8fdc; --c3:#8db6ea; --c4:#c9a227; --c5:#e2c76a; --c6:#7a8699; --c7:#1d8048;
   --radius:14px; --shadow:0 1px 2px rgba(15,39,66,.06),0 4px 16px rgba(15,39,66,.06);
+  --nav-h:64px; --bar-h:58px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -22,87 +24,96 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-u
 h1,h2,h3,h4{margin:0;line-height:1.25}
 a{color:var(--accent)}
 .wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+button{font-family:inherit}
 
 /* Header */
 header.top{background:linear-gradient(120deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff}
-.top .wrap{display:flex;align-items:center;gap:16px;padding-top:18px;padding-bottom:18px;flex-wrap:wrap}
-.logo{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;flex:none;border:1px solid rgba(255,255,255,.18)}
+.top .wrap{display:flex;align-items:center;gap:14px;padding-top:16px;padding-bottom:16px;flex-wrap:wrap}
+.logo{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;flex:none;border:1px solid rgba(255,255,255,.18)}
+.brand{min-width:0}
 .brand h1{font-size:20px;font-weight:800;letter-spacing:.2px}
 .brand p{margin:2px 0 0;color:#c4d3e8;font-size:13px}
 .top .meta{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:600;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;white-space:nowrap}
 .chip b{color:var(--gold)}
 
-/* Tabs */
-nav.tabs{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+/* Tabs (arriba en escritorio, barra inferior en celular) */
+nav.tabs{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
 nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 nav.tabs .wrap::-webkit-scrollbar{display:none}
-.tab{appearance:none;border:0;background:none;padding:14px 14px;font:600 14px Inter,system-ui,sans-serif;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tab{appearance:none;border:0;background:none;padding:14px 14px;font:600 14px Inter,system-ui,sans-serif;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.tab svg{width:18px;height:18px;flex:none}
 .tab:hover{color:var(--ink)}
 .tab.active{color:var(--navy);border-bottom-color:var(--gold)}
-.tab .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:6px;background:var(--line-2);font-size:11px;margin-right:6px}
-.tab.active .n{background:var(--navy);color:#fff}
+.tab .full{display:inline}.tab .short{display:none}
 
 main{padding:20px 0 48px}
 section.view{display:none}
 section.view.active{display:block}
 
+/* Barra de resumen (solo celular) */
+.mbar{display:none}
+
 /* Layout */
 .grid{display:grid;gap:16px}
 .g-quote{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:start}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .sticky{position:sticky;top:64px}
-@media (max-width:980px){.g-quote{grid-template-columns:1fr}.sticky{position:static}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.g2,.g3,.g4{grid-template-columns:1fr}}
+@media (max-width:980px){.g-quote{grid-template-columns:1fr}.sticky{position:static}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g2{grid-template-columns:1fr}}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-width:0}
 .card > .hd{padding:16px 18px 12px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .card > .hd h2{font-size:15px;font-weight:700;color:var(--navy)}
 .card > .hd .sub{font-size:12.5px;color:var(--muted);width:100%;margin-top:-4px}
 .card > .bd{padding:16px 18px}
-.step{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--navy);color:#fff;font-size:12px;font-weight:700}
+details.card > summary{list-style:none;cursor:pointer;border-bottom:1px solid transparent}
+details.card[open] > summary{border-bottom-color:var(--line-2)}
+details.card > summary::-webkit-details-marker{display:none}
+details.card > summary::after{content:"";width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin-left:auto;margin-right:4px;transition:transform .2s}
+details.card[open] > summary::after{transform:rotate(-135deg)}
+details.card > summary .sub{order:3}
+.step{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--navy);color:#fff;font-size:12px;font-weight:700;flex:none}
+.opt{font-size:11px;font-weight:600;color:var(--muted);background:var(--line-2);padding:2px 8px;border-radius:999px}
 .page-title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
 .page-title h2{font-size:22px;color:var(--navy);font-weight:800}
 .page-title p{margin:4px 0 0;color:var(--muted);font-size:14px;max-width:760px}
 
 /* Forms */
 .fields{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
-.fields.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media (max-width:620px){.fields,.fields.three{grid-template-columns:1fr}}
 .field{display:flex;flex-direction:column;gap:5px;min-width:0}
 .field.full{grid-column:1/-1}
 label,.lbl{font-size:12.5px;font-weight:600;color:var(--muted)}
-input[type=text],input[type=number],input[type=date],input[type=email],select,textarea{
-  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfcfe;color:var(--ink);font:500 14px Inter,system-ui,sans-serif;outline:none;transition:border-color .15s, box-shadow .15s}
-input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:#fff}
+input[type=text],input[type=number],input[type=date],select{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfcfe;color:var(--ink);font:500 14px Inter,system-ui,sans-serif;outline:none;transition:border-color .15s, box-shadow .15s;min-height:42px}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:#fff}
 input.err{border-color:var(--bad);background:var(--bad-soft)}
 input[type=number]{font-variant-numeric:tabular-nums}
-.hint{font-size:12px;color:var(--muted)}
+.hint{font-size:12px;color:var(--muted);font-weight:500}
 .seg{display:flex;background:var(--line-2);padding:4px;border-radius:12px;gap:4px;flex-wrap:wrap}
-.seg button{flex:1 1 auto;appearance:none;border:0;background:transparent;padding:9px 10px;border-radius:9px;font:600 13px Inter,system-ui,sans-serif;color:var(--muted);cursor:pointer;min-width:0}
+.seg button{flex:1 1 auto;appearance:none;border:0;background:transparent;padding:10px 10px;border-radius:9px;font:600 13px Inter,system-ui,sans-serif;color:var(--muted);cursor:pointer;min-width:0}
 .seg button.on{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.seg button small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
 .check{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer}
 .check input{width:18px;height:18px;accent-color:var(--navy)}
 
-.btn{appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px;border-radius:10px;font:600 13.5px Inter,system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn{appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px;border-radius:10px;font:600 13.5px Inter,system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;min-height:40px}
 .btn:hover{border-color:#c7d0dd}
 .btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
-.btn.primary:hover{background:var(--navy-2)}
 .btn.gold{background:var(--gold);border-color:var(--gold);color:#1b1404}
-.btn.sm{padding:6px 10px;font-size:12.5px}
+.btn.sm{padding:6px 10px;font-size:12.5px;min-height:34px}
 .btns{display:flex;gap:8px;flex-wrap:wrap}
 
-/* Schedule */
-.sched{width:100%;border-collapse:separate;border-spacing:0;min-width:620px}
-.sched th{font-size:12px;color:var(--muted);font-weight:600;padding:6px 4px;text-align:center}
-.sched td{padding:4px}
-.sched td:first-child{font-size:12.5px;font-weight:600;color:var(--muted);white-space:nowrap;padding-right:8px}
-.sched input{text-align:center;padding:8px 4px}
+/* Horario por días */
 .presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.day{display:grid;grid-template-columns:minmax(0,1fr) 76px 76px;align-items:center;gap:8px;padding:6px 8px 6px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfcfe}
+.day .dn{font-weight:600;font-size:13.5px}
+.day .dn small{display:block;color:var(--muted);font-weight:500;font-size:11.5px}
+.day input{text-align:center;padding:8px 4px;min-height:38px}
+.days-head{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin:0 0 6px}
 
-/* Tables */
+/* Tablas */
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table.t{width:100%;border-collapse:collapse;font-size:13.5px}
 table.t th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700;padding:9px 10px;border-bottom:1px solid var(--line);background:#f8fafc;white-space:nowrap}
@@ -112,16 +123,15 @@ table.t tr.sec td{background:#f5f7fb;font-weight:700;color:var(--navy);font-size
 table.t tr.tot td{font-weight:800;border-top:2px solid var(--navy);background:#fafbfd}
 table.t tr.hl td{background:var(--gold-soft)}
 table.t tr.neg td.num{color:var(--bad)}
-table.t input{padding:7px 8px;font-size:13px;min-width:80px}
+table.t input{padding:7px 8px;font-size:13px;min-width:84px;min-height:36px}
 .muted{color:var(--muted)}
 .small{font-size:12.5px}
 
-/* Result */
+/* Resultado */
 .result{background:linear-gradient(160deg,var(--navy) 0%,#10325a 100%);color:#fff;border:0}
 .result .hd{border-bottom-color:rgba(255,255,255,.12)!important}
 .result .hd h2{color:#fff!important}
 .big{font-size:34px;font-weight:800;letter-spacing:-.5px;font-variant-numeric:tabular-nums;line-height:1.1}
-.big small{font-size:14px;font-weight:600;color:#b8c8de;letter-spacing:0}
 .rlines{margin-top:14px;display:grid;gap:2px}
 .rline{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.14);font-size:14px}
 .rline span:first-child{color:#c4d3e8}
@@ -130,67 +140,126 @@ table.t input{padding:7px 8px;font-size:13px;min-width:80px}
 .rline.total span{color:#fff!important;font-weight:800}
 .rbox{margin-top:14px;padding:12px;border-radius:12px;background:rgba(255,255,255,.07);font-size:13px;color:#dbe5f3}
 .kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.kpi-mini{background:rgba(255,255,255,.07);border-radius:10px;padding:10px}
+.kpi-mini{background:rgba(255,255,255,.07);border-radius:10px;padding:10px;min-width:0}
 .kpi-mini .l{font-size:11.5px;color:#b8c8de}
-.kpi-mini .v{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.kpi-mini .v{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 
-.kpi{padding:16px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+.kpi{padding:16px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);min-width:0}
 .kpi .l{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-.kpi .v{font-size:24px;font-weight:800;margin-top:6px;font-variant-numeric:tabular-nums;color:var(--navy)}
+.kpi .v{font-size:24px;font-weight:800;margin-top:6px;font-variant-numeric:tabular-nums;color:var(--navy);overflow-wrap:anywhere}
 .kpi .s{font-size:12.5px;color:var(--muted);margin-top:2px}
-.kpi.good .v{color:var(--ok)} .kpi.bad .v{color:var(--bad)} .kpi.warnk .v{color:var(--warn)}
+.kpi.good .v{color:var(--ok)} .kpi.bad .v{color:var(--bad)}
 
 .alert{display:flex;gap:10px;padding:12px 14px;border-radius:12px;font-size:13.5px;border:1px solid;align-items:flex-start}
 .alert.warn{background:var(--warn-soft);border-color:#f0d59e;color:#6b4306}
 .alert.bad{background:var(--bad-soft);border-color:#f0c0bc;color:#7a1d17}
 .alert.ok{background:var(--ok-soft);border-color:#b7e0c7;color:#14532d}
 .alert.info{background:var(--accent-soft);border-color:#c4d8f3;color:#123a6b}
-.alert b{font-weight:700}
+.alert .ic{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;color:#fff;margin-top:1px}
+.alert.warn .ic{background:var(--warn)} .alert.bad .ic{background:var(--bad)} .alert.ok .ic{background:var(--ok)} .alert.info .ic{background:var(--accent)}
 .alerts{display:grid;gap:8px}
-.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:700}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:700;white-space:nowrap}
 .badge.ok{background:var(--ok-soft);color:var(--ok)} .badge.bad{background:var(--bad-soft);color:var(--bad)} .badge.warn{background:var(--warn-soft);color:var(--warn)} .badge.info{background:var(--accent-soft);color:var(--accent)}
 
-/* Stacked bar */
+/* Simulador de nómina */
+.sim-out{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sim-out .o{padding:12px;border-radius:12px;background:#f7f9fc;border:1px solid var(--line-2);min-width:0}
+.sim-out .o .l{font-size:11.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.sim-out .o .v{font-size:19px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.sim-out .o .d{font-size:12px;color:var(--muted)}
+.sim-out .o.good .v{color:var(--ok)} .sim-out .o.bad .v{color:var(--bad)}
+.delta{font-size:12px;font-weight:700}
+.delta.up{color:var(--ok)} .delta.down{color:var(--bad)}
+
+/* Gráficas */
 .stack{display:flex;height:34px;border-radius:9px;overflow:hidden;background:var(--line-2)}
-.stack div{height:100%;min-width:2px;position:relative}
+.stack div{height:100%;min-width:2px}
 .stack div + div{border-left:2px solid #fff}
-.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px 16px;margin-top:14px}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 16px;margin-top:14px}
 .legend .it{display:flex;align-items:center;gap:8px;font-size:13px}
 .legend .sw{width:12px;height:12px;border-radius:3px;flex:none}
 .legend .it .val{margin-left:auto;font-weight:700;font-variant-numeric:tabular-nums}
 .legend .it .pc{color:var(--muted);font-size:12px;width:52px;text-align:right}
-
-/* Waterfall */
 .wf{display:grid;gap:6px}
-.wf .row{display:grid;grid-template-columns:200px 1fr 130px;gap:10px;align-items:center;font-size:13px}
+.wf .row{display:grid;grid-template-columns:190px 1fr 120px;gap:10px;align-items:center;font-size:13px}
 .wf .bar{height:20px;position:relative;background:var(--line-2);border-radius:5px}
 .wf .bar i{position:absolute;top:0;bottom:0;border-radius:5px}
 .wf .row .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
-@media (max-width:620px){.wf .row{grid-template-columns:1fr 110px}.wf .bar{grid-column:1/-1;grid-row:2}}
 
-/* Normativa / diagnóstico */
+/* Ayuda */
 .law{display:grid;gap:10px}
 .law .item{padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff;display:grid;grid-template-columns:auto 1fr;gap:12px}
 .law .tag{font-size:11px;font-weight:800;color:var(--navy);background:var(--gold-soft);border:1px solid #efdfa6;padding:4px 8px;border-radius:8px;height:max-content;white-space:nowrap}
 .law h4{font-size:14px;color:var(--navy)}
 .law p{margin:4px 0 0;font-size:13.5px;color:#334155}
-.find{display:grid;gap:10px}
-.find .f{padding:14px;border-radius:12px;border:1px solid var(--line);background:#fff;border-left:4px solid var(--line)}
-.find .f.crit{border-left-color:var(--bad)} .find .f.high{border-left-color:var(--warn)} .find .f.med{border-left-color:var(--accent)} .find .f.good{border-left-color:var(--ok)}
-.find h4{font-size:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.find p{margin:6px 0 0;font-size:13.5px;color:#334155}
-code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;background:var(--line-2);padding:1px 5px;border-radius:5px}
+.howto{display:grid;gap:10px;counter-reset:s;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.howto .s{padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff;position:relative;padding-left:52px}
+.howto .s::before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+.howto h4{font-size:14px;color:var(--navy)}
+.howto p{margin:4px 0 0;font-size:13.5px;color:#334155}
 
 footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px solid var(--line)}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;font-size:13.5px;font-weight:600;transition:transform .25s;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(140px);background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;font-size:13.5px;font-weight:600;transition:transform .25s;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .mt{margin-top:16px}.mt8{margin-top:8px}
 
-/* Print quote */
+/* ===== Celular ===== */
+@media (max-width:720px){
+  body{font-size:15px;padding-bottom:calc(var(--nav-h) + var(--bar-h) + env(safe-area-inset-bottom))}
+  input[type=text],input[type=number],input[type=date],select{font-size:16px}
+  .top .wrap{padding-top:12px;padding-bottom:12px;gap:10px}
+  .logo{width:36px;height:36px;border-radius:10px}
+  .logo svg{width:20px;height:20px}
+  .brand h1{font-size:17px}
+  .brand p{display:none}
+  .top .meta{margin-left:0;width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .top .meta::-webkit-scrollbar{display:none}
+  .chip{font-size:11.5px;padding:5px 9px}
+  nav.tabs{position:fixed;top:auto;bottom:0;left:0;right:0;border-top:1px solid var(--line);border-bottom:0;box-shadow:0 -4px 16px rgba(15,39,66,.08);padding-bottom:env(safe-area-inset-bottom)}
+  nav.tabs .wrap{padding:0;gap:0;overflow:visible}
+  .tab{flex:1;flex-direction:column;gap:3px;padding:9px 2px 8px;font-size:11px;border-bottom:0;border-top:3px solid transparent;height:var(--nav-h);justify-content:center}
+  .tab svg{width:22px;height:22px}
+  .tab.active{border-top-color:var(--gold);border-bottom:0}
+  .tab .full{display:none}.tab .short{display:inline}
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));height:var(--bar-h);background:var(--navy);color:#fff;z-index:29;align-items:center;gap:10px;padding:0 16px;box-shadow:0 -4px 16px rgba(0,0,0,.12)}
+  .mbar.hide{display:none}
+  .mbar .l{font-size:11px;color:#b8c8de;line-height:1.2}
+  .mbar .v{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+  .mbar .m{margin-left:auto;text-align:right}
+  .mbar .btn{min-height:36px;padding:6px 12px;font-size:12.5px;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff}
+  main{padding-top:16px}
+  .page-title{margin-bottom:12px}
+  .page-title h2{font-size:19px}
+  .page-title p{font-size:13.5px}
+  .page-title .btns{width:100%}
+  .page-title .btns .btn{flex:1}
+  .fields{grid-template-columns:1fr}
+  .card > .hd{padding:14px 14px 10px}
+  .card > .bd{padding:14px}
+  .big{font-size:30px}
+  .g4{grid-template-columns:1fr 1fr;gap:10px}
+  .kpi{padding:12px}
+  .kpi .v{font-size:18px}
+  .kpi .l{font-size:10.5px}
+  .kpi .s{font-size:11.5px}
+  .sim-out{grid-template-columns:1fr 1fr}
+  .sim-out .o .v{font-size:16px}
+  .hide-sm{display:none}
+  .days{grid-template-columns:1fr}
+  .wf .row{grid-template-columns:1fr 112px}
+  .wf .bar{grid-column:1/-1;grid-row:2}
+  .legend{grid-template-columns:1fr}
+  table.t{font-size:13px}
+  table.t th,table.t td{padding:8px 7px}
+  .law .item{grid-template-columns:1fr;gap:6px}
+  .toast{bottom:calc(var(--nav-h) + var(--bar-h) + 12px)}
+}
+
+/* Cotización impresa */
 #print{display:none}
 @media print{
   @page{size:letter;margin:14mm}
-  body{background:#fff;font-size:12px}
+  body{background:#fff;font-size:12px;padding:0}
   body > *:not(#print){display:none!important}
   #print{display:block;color:#111}
   .pq-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #0f2742;padding-bottom:10px}
@@ -224,7 +293,7 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
     </div>
     <div class="meta">
       <span class="chip">SMMLV <b id="hdrSmmlv">—</b></span>
-      <span class="chip">Período vigente <b id="hdrPeriodo">—</b></span>
+      <span class="chip">Tarifa <b id="hdrPeriodo">—</b></span>
       <span class="chip">Factor <b id="hdrFactor">—</b></span>
     </div>
   </div>
@@ -232,27 +301,32 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
 
 <nav class="tabs" aria-label="Secciones">
   <div class="wrap" role="tablist">
-    <button class="tab active" data-tab="cotizar"><span class="n">1</span>Cotizador</button>
-    <button class="tab" data-tab="rentabilidad"><span class="n">2</span>Utilidad y rentabilidad</button>
-    <button class="tab" data-tab="nomina"><span class="n">3</span>Estructura de nómina</button>
-    <button class="tab" data-tab="parametros"><span class="n">4</span>Parámetros y tarifas</button>
-    <button class="tab" data-tab="normativa"><span class="n">5</span>Marco normativo</button>
-    <button class="tab" data-tab="diagnostico"><span class="n">6</span>Diagnóstico de tarifadores</button>
+    <button class="tab active" data-tab="cotizar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg><span class="full">Cotizar</span><span class="short">Cotizar</span></button>
+    <button class="tab" data-tab="rentabilidad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></svg><span class="full">Utilidad</span><span class="short">Utilidad</span></button>
+    <button class="tab" data-tab="nomina"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="M16 3.5a4 4 0 0 1 0 7M22 21v-1a6 6 0 0 0-4-5.7"/></svg><span class="full">Nómina del puesto</span><span class="short">Nómina</span></button>
+    <button class="tab" data-tab="parametros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg><span class="full">Parámetros</span><span class="short">Ajustes</span></button>
+    <button class="tab" data-tab="ayuda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg><span class="full">Ayuda y normas</span><span class="short">Ayuda</span></button>
   </div>
 </nav>
+
+<div class="mbar" id="mbar">
+  <div><div class="l" id="mbarL">Valor mensual por puesto</div><div class="v" id="mbarV">—</div></div>
+  <div class="m"><div class="l">Margen</div><div class="v" id="mbarM" style="font-size:15px">—</div></div>
+  <button class="btn" id="mbarBtn">Detalle</button>
+</div>
 
 <main>
 <div class="wrap">
 
-<!-- ================= 1. COTIZADOR ================= -->
+<!-- ================= 1. COTIZAR ================= -->
 <section class="view active" id="v-cotizar">
   <div class="page-title">
     <div>
-      <h2>Cotizador de servicios</h2>
-      <p>Diligencie los datos del cliente y del servicio. El valor se calcula automáticamente con la tarifa mínima regulada por la Supervigilancia para el período de la fecha de cotización.</p>
+      <h2>Cotizar un servicio</h2>
+      <p>Elija el servicio y, si lo necesita, un descuento. El precio se calcula con la tarifa mínima de la Supervigilancia vigente en la fecha de la cotización.</p>
     </div>
     <div class="btns">
-      <button class="btn" id="btnNueva">Nueva cotización</button>
+      <button class="btn" id="btnNueva">Nueva</button>
       <button class="btn" id="btnCopiar">Copiar resumen</button>
       <button class="btn gold" id="btnImprimir">Imprimir / PDF</button>
     </div>
@@ -260,25 +334,9 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
 
   <div class="grid g-quote">
     <div class="grid">
-      <!-- Cliente -->
-      <div class="card">
-        <div class="hd"><span class="step">1</span><h2>Datos del cliente</h2></div>
-        <div class="bd">
-          <div class="fields">
-            <div class="field full"><label for="q-cliente">Empresa / razón social</label><input type="text" id="q-cliente" data-q="cliente" placeholder="Ej.: Conjunto Residencial Los Andes"></div>
-            <div class="field"><label for="q-nit">NIT / C.C.</label><input type="text" id="q-nit" data-q="nit" placeholder="900.000.000-0"></div>
-            <div class="field"><label for="q-contacto">Contacto</label><input type="text" id="q-contacto" data-q="contacto" placeholder="Nombre y cargo"></div>
-            <div class="field"><label for="q-direccion">Dirección del puesto</label><input type="text" id="q-direccion" data-q="direccion" placeholder="Dirección"></div>
-            <div class="field"><label for="q-ciudad">Ciudad</label><input type="text" id="q-ciudad" data-q="ciudad"></div>
-            <div class="field"><label for="q-numero">N.º de cotización</label><input type="text" id="q-numero" data-q="numero"></div>
-            <div class="field"><label for="q-fecha">Fecha de cotización</label><input type="date" id="q-fecha" data-q="fecha"></div>
-          </div>
-        </div>
-      </div>
-
       <!-- Servicio -->
       <div class="card">
-        <div class="hd"><span class="step">2</span><h2>Tipo de servicio</h2></div>
+        <div class="hd"><span class="step">1</span><h2>¿Qué servicio necesita el cliente?</h2></div>
         <div class="bd">
           <div class="fields">
             <div class="field full">
@@ -288,63 +346,80 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
             <div class="field full">
               <span class="lbl">Cobertura</span>
               <div class="seg" id="segTipo">
-                <button data-v="24h">24 h permanente (mes)</button>
-                <button data-v="custom">Horario por días (mes)</button>
-                <button data-v="dias">Servicio eventual (días)</button>
+                <button data-v="24h">24 horas<small>todo el mes</small></button>
+                <button data-v="custom">Por horario<small>días y horas</small></button>
+                <button data-v="dias">Eventual<small>por días</small></button>
               </div>
             </div>
-            <div class="field"><label for="q-periodo">Tarifa / período</label><select id="q-periodo" data-q="periodo"></select></div>
-            <div class="field"><label for="q-puestos">N.º de puestos iguales</label><input type="number" min="1" step="1" id="q-puestos" data-q="puestos"></div>
-            <div class="field" id="fMeses"><label for="q-meses">Duración del contrato (meses)</label><input type="number" min="1" step="1" id="q-meses" data-q="meses"></div>
           </div>
 
           <div id="boxCustom" class="mt">
             <div class="presets">
-              <span class="lbl" style="align-self:center;margin-right:4px">Plantillas:</span>
               <button class="btn sm" data-preset="24">24 h todos los días</button>
               <button class="btn sm" data-preset="dia">Diurno 13 h L–D</button>
               <button class="btn sm" data-preset="noche">Nocturno 11 h L–D</button>
-              <button class="btn sm" data-preset="oficina">Oficina L–V 10 h + Sáb 5 h</button>
-              <button class="btn sm" data-preset="finde">Fines de semana y festivos 24 h</button>
+              <button class="btn sm" data-preset="oficina">Oficina L–V + sáb.</button>
+              <button class="btn sm" data-preset="finde">Fines de semana 24 h</button>
             </div>
-            <div class="table-wrap">
-              <table class="sched" id="schedTable"></table>
-            </div>
-            <p class="hint mt8">Diurnas: 06:00–19:00 (máx. 13 h). Nocturnas: 19:00–06:00 (máx. 11 h), Ley 2466 de 2025. Mes estándar: <span id="lblDiasMes"></span>.</p>
+            <div class="days-head"><span>Día</span><span>☀ Diurnas · ☾ Nocturnas</span></div>
+            <div class="days" id="days"></div>
+            <p class="hint mt8">☀ Diurnas 06:00–19:00 (máx. 13 h) · ☾ Nocturnas 19:00–06:00 (máx. 11 h).</p>
           </div>
 
           <div id="boxDias" class="mt">
             <div class="fields">
-              <div class="field"><label for="q-dias">Días de servicio</label><input type="number" min="1" step="1" id="q-dias" data-q="dias"></div>
-              <div class="field"><label for="q-diasFest">De ellos, domingos o festivos</label><input type="number" min="0" step="1" id="q-diasFest" data-q="diasFest"></div>
-              <div class="field"><label for="q-hdEv">Horas diurnas por día</label><input type="number" min="0" max="13" step="1" id="q-hdEv" data-q="hdEv"></div>
-              <div class="field"><label for="q-hnEv">Horas nocturnas por día</label><input type="number" min="0" max="11" step="1" id="q-hnEv" data-q="hnEv"></div>
+              <div class="field"><label for="q-dias">Días de servicio</label><input type="number" inputmode="numeric" min="1" step="1" id="q-dias" data-q="dias"></div>
+              <div class="field"><label for="q-diasFest">De ellos, domingos o festivos</label><input type="number" inputmode="numeric" min="0" step="1" id="q-diasFest" data-q="diasFest"></div>
+              <div class="field"><label for="q-hdEv">Horas diurnas por día</label><input type="number" inputmode="numeric" min="0" max="13" step="1" id="q-hdEv" data-q="hdEv"></div>
+              <div class="field"><label for="q-hnEv">Horas nocturnas por día</label><input type="number" inputmode="numeric" min="0" max="11" step="1" id="q-hnEv" data-q="hnEv"></div>
             </div>
+          </div>
+
+          <div class="fields mt">
+            <div class="field"><label for="q-puestos">Puestos iguales</label><input type="number" inputmode="numeric" min="1" step="1" id="q-puestos" data-q="puestos"></div>
+            <div class="field" id="fMeses"><label for="q-meses">Meses de contrato</label><input type="number" inputmode="numeric" min="1" step="1" id="q-meses" data-q="meses"></div>
           </div>
         </div>
       </div>
 
       <!-- Ajuste comercial -->
       <div class="card">
-        <div class="hd"><span class="step">3</span><h2>Ajuste comercial</h2><div class="sub">Opcional. Úselo para negociar; el sistema advierte si el precio queda por debajo de la tarifa mínima legal.</div></div>
+        <div class="hd"><span class="step">2</span><h2>Precio para el cliente</h2></div>
         <div class="bd">
           <div class="seg" id="segAjuste">
             <button data-v="ninguno">Tarifa plena</button>
             <button data-v="descuento">Descuento %</button>
             <button data-v="acordado">Precio acordado</button>
           </div>
-          <div class="fields mt">
-            <div class="field" id="fDesc"><label for="q-descuento">Descuento sobre el total (%)</label><input type="number" min="0" max="100" step="0.5" id="q-descuento" data-q="descuento"></div>
-            <div class="field" id="fAcord"><label for="q-acordado">Valor mensual acordado por puesto (con IVA)</label><input type="number" min="0" step="1000" id="q-acordado" data-q="acordado"></div>
+          <div class="fields mt" id="ajFields">
+            <div class="field" id="fDesc"><label for="q-descuento">Descuento sobre el total (%)</label><input type="number" inputmode="decimal" min="0" max="100" step="0.5" id="q-descuento" data-q="descuento"></div>
+            <div class="field" id="fAcord"><label for="q-acordado">Valor mensual por puesto, con IVA</label><input type="number" inputmode="numeric" min="0" step="1000" id="q-acordado" data-q="acordado"></div>
           </div>
           <div class="alerts mt" id="alertsAjuste"></div>
         </div>
       </div>
+
+      <!-- Cliente -->
+      <details class="card" id="cardCliente">
+        <summary class="hd"><span class="step">3</span><h2>Datos del cliente</h2><span class="opt">para imprimir</span></summary>
+        <div class="bd">
+          <div class="fields">
+            <div class="field full"><label for="q-cliente">Empresa o razón social</label><input type="text" id="q-cliente" data-q="cliente" placeholder="Ej.: Conjunto Residencial Los Andes"></div>
+            <div class="field"><label for="q-nit">NIT / C.C.</label><input type="text" id="q-nit" data-q="nit" placeholder="900.000.000-0"></div>
+            <div class="field"><label for="q-contacto">Contacto</label><input type="text" id="q-contacto" data-q="contacto" placeholder="Nombre y cargo"></div>
+            <div class="field"><label for="q-direccion">Dirección del puesto</label><input type="text" id="q-direccion" data-q="direccion"></div>
+            <div class="field"><label for="q-ciudad">Ciudad</label><input type="text" id="q-ciudad" data-q="ciudad"></div>
+            <div class="field"><label for="q-numero">N.º de cotización</label><input type="text" id="q-numero" data-q="numero"></div>
+            <div class="field"><label for="q-fecha">Fecha</label><input type="date" id="q-fecha" data-q="fecha"></div>
+            <div class="field full"><label for="q-periodo">Tarifa aplicada</label><select id="q-periodo" data-q="periodo"></select><span class="hint">Déjelo en automático: la tarifa sale de la fecha.</span></div>
+          </div>
+        </div>
+      </details>
     </div>
 
     <!-- Resultado -->
     <div class="sticky grid">
-      <div class="card result">
+      <div class="card result" id="resCard">
         <div class="hd"><h2 id="resTitulo">Valor mensual por puesto</h2></div>
         <div class="bd">
           <div class="big" id="resTotal">—</div>
@@ -355,32 +430,24 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
         </div>
       </div>
       <div class="card">
-        <div class="hd"><h2>Lectura rápida para el negocio</h2></div>
+        <div class="hd"><h2>Lo que debe saber de este precio</h2><span class="opt">uso interno</span></div>
         <div class="bd"><div class="alerts" id="quickInsights"></div></div>
       </div>
     </div>
   </div>
 
-  <div class="card mt">
-    <div class="hd"><h2>Comparativo de tarifas 2026 para este servicio</h2><div class="sub">Mismo servicio liquidado con los tres factores del año. La fila resaltada es la que se está aplicando.</div></div>
+  <details class="card mt" id="cardPeriodos">
+    <summary class="hd"><h2>El mismo servicio en las 3 tarifas de 2026</h2></summary>
     <div class="bd table-wrap"><table class="t" id="tblPeriodos"></table></div>
-  </div>
+  </details>
 </section>
 
-<!-- ================= 2. RENTABILIDAD ================= -->
+<!-- ================= 2. UTILIDAD ================= -->
 <section class="view" id="v-rentabilidad">
   <div class="page-title">
     <div>
-      <h2>Utilidad del servicio</h2>
-      <p>Uso interno. Parte del ingreso facturado (sin IVA) y descuenta todos los gastos que causa el puesto: nómina completa con recargos, prestaciones, seguridad social, dotación, relevos, costos operativos, supervisión, administración e impuestos.</p>
-    </div>
-    <div class="field" style="min-width:240px">
-      <label>Guardas asignados al puesto</label>
-      <div class="seg" id="segGuardas">
-        <button data-v="auto">Automático (legal)</button>
-        <button data-v="manual">Manual</button>
-      </div>
-      <input type="number" min="1" step="1" id="q-guardas" data-q="guardas" class="mt8" style="display:none">
+      <h2>¿Cuánto gana la empresa?</h2>
+      <p>Del valor facturado sin IVA se restan todos los gastos del puesto. Uso interno. El personal se ajusta en la pestaña Nómina.</p>
     </div>
   </div>
 
@@ -388,56 +455,98 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
 
   <div class="grid g2 mt">
     <div class="card">
-      <div class="hd"><h2>¿A dónde va cada peso facturado?</h2><div class="sub">Distribución del ingreso mensual sin IVA de un puesto.</div></div>
-      <div class="bd"><div class="stack" id="stackBar"></div><div class="legend" id="stackLegend"></div></div>
+      <div class="hd"><h2>Del ingreso a la utilidad</h2><div class="sub">Valores mensuales por puesto.</div></div>
+      <div class="bd"><div class="wf" id="waterfall"></div></div>
     </div>
     <div class="card">
-      <div class="hd"><h2>Cascada: del ingreso a la utilidad</h2><div class="sub">Valores mensuales por puesto.</div></div>
-      <div class="bd"><div class="wf" id="waterfall"></div></div>
+      <div class="hd"><h2>¿Cuánto se puede negociar?</h2><div class="sub">Utilidad con cada descuento sobre la tarifa plena.</div></div>
+      <div class="bd table-wrap"><table class="t" id="tblSens"></table></div>
     </div>
   </div>
 
   <div class="card mt">
-    <div class="hd"><h2>Estado de resultados del puesto</h2><div class="sub">Mensual por puesto, total mensual de los puestos cotizados y total del contrato.</div></div>
-    <div class="bd table-wrap"><table class="t" id="tblPyG"></table></div>
+    <div class="hd"><h2>¿A dónde va cada peso facturado?</h2></div>
+    <div class="bd"><div class="stack" id="stackBar"></div><div class="legend" id="stackLegend"></div></div>
   </div>
 
-  <div class="grid g2 mt">
-    <div class="card">
-      <div class="hd"><h2>Sensibilidad al descuento</h2><div class="sub">Cuánto se puede negociar antes de perder dinero.</div></div>
-      <div class="bd table-wrap"><table class="t" id="tblSens"></table></div>
-    </div>
-    <div class="card">
-      <div class="hd"><h2>Escenarios de personal</h2><div class="sub">Cubrir el mismo horario con distinto número de guardas.</div></div>
-      <div class="bd table-wrap"><table class="t" id="tblGuardas"></table></div>
-    </div>
-  </div>
+  <details class="card mt">
+    <summary class="hd"><h2>Estado de resultados detallado</h2></summary>
+    <div class="bd table-wrap"><table class="t" id="tblPyG"></table></div>
+  </details>
 </section>
 
 <!-- ================= 3. NÓMINA ================= -->
 <section class="view" id="v-nomina">
   <div class="page-title">
     <div>
-      <h2>Estructura salarial y costo de nómina</h2>
-      <p>Liquidación del personal que cubre el puesto cotizado, según el período seleccionado (jornada, recargo dominical y valor hora cambian durante 2026). Todos los porcentajes se editan en la pestaña Parámetros.</p>
+      <h2>Nómina del puesto</h2>
+      <p>Ajuste el personal de esta cotización (salario, guardas, dotación) y vea al instante el costo, el neto del guarda, la utilidad y el descuento que se puede dar. Estos cambios aplican solo a esta cotización.</p>
     </div>
   </div>
-  <div class="grid g4" id="nomKpis"></div>
-  <div class="grid g2 mt">
+
+  <div class="grid g2">
     <div class="card">
-      <div class="hd"><h2>Costo empleador del puesto</h2><div class="sub" id="nomSub"></div></div>
+      <div class="hd"><span class="step">1</span><h2>Ajuste el personal</h2><button class="btn sm" id="btnAjReset" style="margin-left:auto">Restablecer</button></div>
+      <div class="bd">
+        <div class="field">
+          <span class="lbl">Guardas que cubren el puesto</span>
+          <div class="seg" id="segGuardas">
+            <button data-v="auto">Automático<small>sin horas extra</small></button>
+            <button data-v="manual">Número fijo<small>personas enteras</small></button>
+          </div>
+        </div>
+        <div class="fields mt">
+          <div class="field" id="fGuardas"><label for="q-guardas">Número de guardas</label><input type="number" inputmode="numeric" min="1" step="1" id="q-guardas" data-q="guardas"></div>
+          <div class="field"><label for="aj-salario">Salario básico mensual del guarda</label><input type="number" inputmode="numeric" step="1000" id="aj-salario" data-aj="salario"><span class="hint" id="hintSal"></span></div>
+          <div class="field"><label for="aj-bonif">Bonificación no salarial (por guarda)</label><input type="number" inputmode="numeric" step="1000" id="aj-bonif" data-aj="bonif"></div>
+          <div class="field"><label for="aj-dotacion">Dotación por guarda al mes</label><input type="number" inputmode="numeric" step="1000" id="aj-dotacion" data-aj="dotacion"></div>
+          <div class="field"><label for="aj-relevos">Relevos y ausentismo (%)</label><input type="number" inputmode="decimal" step="0.5" id="aj-relevos" data-aj="relevos"></div>
+        </div>
+        <div class="alerts mt" id="alertsNom"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><span class="step">2</span><h2>Resultado con este personal</h2></div>
+      <div class="bd">
+        <div class="sim-out" id="simOut"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt">
+    <div class="hd"><span class="step">3</span><h2>¿Cuánto descuento puedo dar?</h2><div class="sub">Fije la utilidad mínima que quiere ganar y el sistema calcula el descuento máximo y el salario que lo permite.</div></div>
+    <div class="bd">
+      <div class="fields">
+        <div class="field"><label for="q-margenObj">Utilidad mínima deseada (% del ingreso, antes de renta)</label><input type="number" inputmode="decimal" step="0.5" id="q-margenObj" data-q="margenObj"></div>
+        <div class="field"><label for="q-descSim">Descuento que quiere ofrecer (%)</label><input type="number" inputmode="decimal" step="0.5" id="q-descSim" data-q="descSim"></div>
+      </div>
+      <div class="sim-out mt" id="descOut"></div>
+      <div class="alerts mt" id="descAlerts"></div>
+      <div class="btns mt"><button class="btn primary" id="btnAplicarDesc">Usar este descuento en la cotización</button></div>
+    </div>
+  </div>
+
+  <div class="grid g2 mt">
+    <details class="card" open>
+      <summary class="hd"><h2>Liquidación de cada guarda</h2></summary>
+      <div class="bd table-wrap"><table class="t" id="tblGuarda"></table></div>
+    </details>
+    <details class="card">
+      <summary class="hd"><h2>Escenarios: 1, 2 o más guardas</h2></summary>
+      <div class="bd table-wrap"><table class="t" id="tblGuardas"></table></div>
+    </details>
+  </div>
+
+  <div class="grid g2 mt">
+    <details class="card">
+      <summary class="hd"><h2>Costo empleador del puesto (detalle)</h2><div class="sub" id="nomSub"></div></summary>
       <div class="bd table-wrap"><table class="t" id="tblNomina"></table></div>
-    </div>
-    <div class="grid" style="align-content:start">
-      <div class="card">
-        <div class="hd"><h2>Horas del puesto en el mes</h2></div>
-        <div class="bd table-wrap"><table class="t" id="tblHoras"></table></div>
-      </div>
-      <div class="card">
-        <div class="hd"><h2>Liquidación del guarda (promedio)</h2><div class="sub">Lo que recibe cada guarda y lo que le cuesta a la empresa.</div></div>
-        <div class="bd table-wrap"><table class="t" id="tblGuarda"></table></div>
-      </div>
-    </div>
+    </details>
+    <details class="card">
+      <summary class="hd"><h2>Horas del puesto en el mes</h2></summary>
+      <div class="bd table-wrap"><table class="t" id="tblHoras"></table></div>
+    </details>
   </div>
 </section>
 
@@ -445,70 +554,47 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
 <section class="view" id="v-parametros">
   <div class="page-title">
     <div>
-      <h2>Parámetros y tarifas</h2>
-      <p>Todo lo que cambia año a año está aquí. Los cambios se guardan automáticamente en este navegador y recalculan el cotizador. Para llevarlos a otro equipo, use Exportar / Importar.</p>
+      <h2>Parámetros del año</h2>
+      <p>Aquí se cambian los valores que fija la ley o que define la empresa. Se guardan solos en este navegador.</p>
     </div>
     <div class="btns">
-      <button class="btn" id="btnExport">Exportar parámetros</button>
-      <label class="btn" for="fileImport" style="cursor:pointer">Importar parámetros</label>
+      <button class="btn" id="btnExport">Exportar</button>
+      <label class="btn" for="fileImport" style="cursor:pointer">Importar</label>
       <input type="file" id="fileImport" accept="application/json" hidden>
-      <button class="btn" id="btnReset">Restablecer valores 2026</button>
+      <button class="btn" id="btnReset">Restablecer 2026</button>
     </div>
   </div>
 
-  <div class="grid g2">
-    <div class="card">
-      <div class="hd"><h2>Empresa (encabezado de la cotización)</h2></div>
-      <div class="bd fields">
-        <div class="field full"><label>Razón social</label><input type="text" data-p="empresa.nombre"></div>
-        <div class="field"><label>NIT</label><input type="text" data-p="empresa.nit"></div>
-        <div class="field"><label>Licencia Supervigilancia</label><input type="text" data-p="empresa.licencia"></div>
-        <div class="field"><label>Ciudad</label><input type="text" data-p="empresa.ciudad"></div>
-        <div class="field"><label>Teléfono</label><input type="text" data-p="empresa.telefono"></div>
-        <div class="field"><label>Correo</label><input type="text" data-p="empresa.correo"></div>
-        <div class="field"><label>Validez de la oferta (días)</label><input type="number" data-p="validez"></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="hd"><h2>Valores base del año</h2></div>
+  <div class="grid">
+    <details class="card" open>
+      <summary class="hd"><h2>Valores base del año</h2><div class="sub">Salario mínimo, auxilio, póliza e IVA.</div></summary>
       <div class="bd fields">
         <div class="field"><label>Año de la tarifa</label><input type="number" data-p="anio"></div>
         <div class="field"><label>SMMLV</label><input type="number" data-p="smmlv"></div>
         <div class="field"><label>Auxilio de transporte</label><input type="number" data-p="aux"></div>
         <div class="field"><label>Póliza colectiva de vida (por guarda/mes)</label><input type="number" data-p="poliza"></div>
         <div class="field"><label>Guardas base para póliza en la tarifa</label><input type="number" data-p="guardasPoliza"></div>
+        <div class="field"><label>Base gravable IVA (% del valor)</label><input type="number" step="0.1" data-p="baseIVA"></div>
+        <div class="field"><label>Tarifa IVA (%)</label><input type="number" step="0.1" data-p="iva"></div>
         <div class="field"><label>% del costo 24 h que es diurno</label><input type="number" step="0.01" data-p="pctDia"></div>
         <div class="field"><label>% del costo 24 h que es nocturno</label><input type="number" step="0.01" data-p="pctNoche"></div>
         <div class="field"><label>Horas diurnas máx. (06–19)</label><input type="number" data-p="hDiaMax"></div>
         <div class="field"><label>Horas nocturnas máx. (19–06)</label><input type="number" data-p="hNocheMax"></div>
-        <div class="field"><label>Base gravable IVA (% del valor)</label><input type="number" step="0.1" data-p="baseIVA"></div>
-        <div class="field"><label>Tarifa IVA (%)</label><input type="number" step="0.1" data-p="iva"></div>
       </div>
-    </div>
-  </div>
+    </details>
 
-  <div class="card mt">
-    <div class="hd"><h2>Períodos tarifarios del año</h2><div class="sub">Factor de proporcionalidad de la Supervigilancia y reglas laborales vigentes en cada tramo.</div></div>
-    <div class="bd table-wrap"><table class="t" id="tblParPeriodos"></table></div>
-  </div>
+    <details class="card">
+      <summary class="hd"><h2>Períodos tarifarios (Supervigilancia)</h2><div class="sub">Factor, jornada y recargo dominical de cada tramo del año.</div></summary>
+      <div class="bd table-wrap"><table class="t" id="tblParPeriodos"></table></div>
+    </details>
 
-  <div class="grid g2 mt">
-    <div class="card">
-      <div class="hd"><h2>Modalidades y AIU</h2><div class="sub">% de administración y supervisión que permite la tarifa, y costo operativo propio de la modalidad (armamento, canino, etc.).</div></div>
+    <details class="card">
+      <summary class="hd"><h2>Modalidades</h2><div class="sub">% de administración y supervisión y costo operativo propio (armamento, canino).</div></summary>
       <div class="bd table-wrap"><table class="t" id="tblParMod"></table></div>
-    </div>
-    <div class="card">
-      <div class="hd"><h2>Riesgos laborales (ARL)</h2><div class="sub">Tarifa por clase de riesgo, Decreto 1772 de 1994.</div></div>
-      <div class="bd">
-        <div class="table-wrap"><table class="t" id="tblParArl"></table></div>
-        <div class="field mt"><label>Clase aplicada a los guardas</label><select data-p="nomina.arlClase"><option>I</option><option>II</option><option>III</option><option>IV</option><option>V</option></select><span class="hint">Confirme la clase con su ARL según el código de actividad de la empresa.</span></div>
-      </div>
-    </div>
-  </div>
+    </details>
 
-  <div class="grid g2 mt">
-    <div class="card">
-      <div class="hd"><h2>Nómina: salario, recargos y prestaciones</h2></div>
+    <details class="card">
+      <summary class="hd"><h2>Nómina, recargos y prestaciones</h2><div class="sub">Valores por defecto para todas las cotizaciones.</div></summary>
       <div class="bd fields">
         <div class="field full"><label>Salario básico del guarda (0 = SMMLV)</label><input type="number" data-p="nomina.salario"></div>
         <div class="field"><label>Recargo nocturno (%)</label><input type="number" step="0.01" data-p="nomina.recNoc"></div>
@@ -520,104 +606,93 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
         <div class="field"><label>Prima de servicios (%)</label><input type="number" step="0.01" data-p="nomina.prima"></div>
         <div class="field"><label>Vacaciones (%)</label><input type="number" step="0.01" data-p="nomina.vac"></div>
         <div class="field"><label>Bonificación no salarial (por guarda/mes)</label><input type="number" data-p="nomina.bonif"></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="hd"><h2>Seguridad social y parafiscales</h2></div>
-      <div class="bd fields">
-        <div class="field"><label>Pensión empleador (%)</label><input type="number" step="0.01" data-p="nomina.pension"></div>
-        <div class="field"><label>Salud empleador (%)</label><input type="number" step="0.01" data-p="nomina.salud"></div>
-        <div class="field"><label>Caja de compensación (%)</label><input type="number" step="0.01" data-p="nomina.ccf"></div>
-        <div class="field"><label>ICBF (%)</label><input type="number" step="0.01" data-p="nomina.icbf"></div>
-        <div class="field"><label>SENA (%)</label><input type="number" step="0.01" data-p="nomina.sena"></div>
-        <div class="field"><label>Salud trabajador (%)</label><input type="number" step="0.01" data-p="nomina.descSalud"></div>
-        <div class="field"><label>Pensión trabajador (%)</label><input type="number" step="0.01" data-p="nomina.descPension"></div>
-        <div class="field full"><label class="check"><input type="checkbox" data-p="nomina.exoSalud"> Exonerado de salud empleador (art. 114-1 E.T.)</label></div>
-        <div class="field full"><label class="check"><input type="checkbox" data-p="nomina.exoPara"> Exonerado de ICBF y SENA (art. 114-1 E.T.)</label><span class="hint">Aplica a personas jurídicas declarantes de renta, por trabajadores que devenguen menos de 10 SMMLV.</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid g2 mt">
-    <div class="card">
-      <div class="hd"><h2>Otros costos del personal</h2></div>
-      <div class="bd fields">
         <div class="field"><label>Dotación y uniformes (por guarda/mes)</label><input type="number" data-p="nomina.dotacion"></div>
         <div class="field"><label>Capacitación, exámenes, credencial (por guarda/mes)</label><input type="number" data-p="nomina.capacitacion"></div>
-        <div class="field"><label>Relevos, incapacidades y ausentismo (% de la nómina)</label><input type="number" step="0.1" data-p="nomina.relevos"></div>
+        <div class="field"><label>Relevos, incapacidades y ausentismo (%)</label><input type="number" step="0.1" data-p="nomina.relevos"></div>
         <div class="field"><label>Días L–S en el mes (cada uno)</label><input type="number" data-p="diasMes.semana"></div>
         <div class="field"><label>Domingos en el mes</label><input type="number" data-p="diasMes.dom"></div>
         <div class="field"><label>Festivos en el mes</label><input type="number" data-p="diasMes.fest"></div>
       </div>
-    </div>
-    <div class="card">
-      <div class="hd"><h2>Gastos de operación, administración e impuestos</h2></div>
+    </details>
+
+    <details class="card">
+      <summary class="hd"><h2>Seguridad social, parafiscales y ARL</h2></summary>
+      <div class="bd">
+        <div class="fields">
+          <div class="field"><label>Pensión empleador (%)</label><input type="number" step="0.01" data-p="nomina.pension"></div>
+          <div class="field"><label>Salud empleador (%)</label><input type="number" step="0.01" data-p="nomina.salud"></div>
+          <div class="field"><label>Caja de compensación (%)</label><input type="number" step="0.01" data-p="nomina.ccf"></div>
+          <div class="field"><label>ICBF (%)</label><input type="number" step="0.01" data-p="nomina.icbf"></div>
+          <div class="field"><label>SENA (%)</label><input type="number" step="0.01" data-p="nomina.sena"></div>
+          <div class="field"><label>Salud trabajador (%)</label><input type="number" step="0.01" data-p="nomina.descSalud"></div>
+          <div class="field"><label>Pensión trabajador (%)</label><input type="number" step="0.01" data-p="nomina.descPension"></div>
+          <div class="field"><label>Clase de riesgo ARL de los guardas</label><select data-p="nomina.arlClase"><option>I</option><option>II</option><option>III</option><option>IV</option><option>V</option></select></div>
+          <div class="field full"><label class="check"><input type="checkbox" data-p="nomina.exoSalud"> Exonerado de salud empleador (art. 114-1 E.T.)</label></div>
+          <div class="field full"><label class="check"><input type="checkbox" data-p="nomina.exoPara"> Exonerado de ICBF y SENA (art. 114-1 E.T.)</label></div>
+        </div>
+        <div class="table-wrap mt"><table class="t" id="tblParArl"></table></div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary class="hd"><h2>Gastos de la empresa e impuestos</h2><div class="sub">Ajústelos con los datos del contador para que la utilidad sea exacta.</div></summary>
       <div class="bd fields">
         <div class="field"><label>Comunicaciones y equipos por puesto (mes)</label><input type="number" data-p="op.comunicaciones"></div>
         <div class="field"><label>Otros costos fijos por puesto (mes)</label><input type="number" data-p="op.otros"></div>
         <div class="field"><label>Supervisión operativa (% del ingreso)</label><input type="number" step="0.1" data-p="op.supervision"></div>
-        <div class="field"><label>Gastos de administración y ventas (% del ingreso)</label><input type="number" step="0.1" data-p="op.administracion"></div>
-        <div class="field"><label>ICA, contribución Supervigilancia y GMF (% del ingreso)</label><input type="number" step="0.01" data-p="op.ica"></div>
+        <div class="field"><label>Administración y ventas (% del ingreso)</label><input type="number" step="0.1" data-p="op.administracion"></div>
+        <div class="field"><label>ICA, contribución Supervigilancia y GMF (%)</label><input type="number" step="0.01" data-p="op.ica"></div>
         <div class="field"><label>Impuesto de renta (%)</label><input type="number" step="0.1" data-p="op.renta"></div>
-        <div class="field full"><span class="hint">Los porcentajes de administración, ICA y contribuciones son estimaciones iniciales: ajústelos con los datos contables reales de Masivos Seguridad para que la utilidad sea exacta.</span></div>
       </div>
-    </div>
+    </details>
+
+    <details class="card">
+      <summary class="hd"><h2>Datos de la empresa</h2><div class="sub">Encabezado de la cotización impresa.</div></summary>
+      <div class="bd fields">
+        <div class="field full"><label>Razón social</label><input type="text" data-p="empresa.nombre"></div>
+        <div class="field"><label>NIT</label><input type="text" data-p="empresa.nit"></div>
+        <div class="field"><label>Licencia Supervigilancia</label><input type="text" data-p="empresa.licencia"></div>
+        <div class="field"><label>Ciudad</label><input type="text" data-p="empresa.ciudad"></div>
+        <div class="field"><label>Teléfono</label><input type="text" data-p="empresa.telefono"></div>
+        <div class="field"><label>Correo</label><input type="text" data-p="empresa.correo"></div>
+        <div class="field"><label>Validez de la oferta (días)</label><input type="number" data-p="validez"></div>
+      </div>
+    </details>
   </div>
 </section>
 
-<!-- ================= 5. NORMATIVA ================= -->
-<section class="view" id="v-normativa">
+<!-- ================= 5. AYUDA ================= -->
+<section class="view" id="v-ayuda">
   <div class="page-title">
     <div>
-      <h2>Marco normativo aplicado</h2>
-      <p>Normas que soportan cada cálculo. Revise cada año la circular de tarifas de la Supervigilancia y el decreto de salario mínimo, y actualice la pestaña Parámetros.</p>
+      <h2>Cómo usar el tarifador</h2>
+      <p>Cinco pasos para cotizar y saber cuánto gana la empresa.</p>
     </div>
   </div>
-  <div class="grid g2">
+  <div class="howto">
+    <div class="s"><h4>Arme el servicio</h4><p>En Cotizar elija modalidad y cobertura: 24 h, por horario (use las plantillas) o eventual.</p></div>
+    <div class="s"><h4>Defina el precio</h4><p>Tarifa plena es el mínimo legal. Con Descuento % o Precio acordado, un aviso rojo le dice si queda por debajo del mínimo o en pérdida.</p></div>
+    <div class="s"><h4>Revise la utilidad</h4><p>En Utilidad vea cuánto queda después de nómina, gastos e impuestos, y la tabla de descuentos posibles.</p></div>
+    <div class="s"><h4>Ajuste el personal</h4><p>En Nómina cambie guardas, salario y dotación. Fije la utilidad mínima y el sistema le dice el descuento máximo.</p></div>
+    <div class="s"><h4>Entregue la cotización</h4><p>Llene los datos del cliente y toque Imprimir / PDF. Elija "Guardar como PDF" para enviarla.</p></div>
+  </div>
+
+  <div class="grid g2 mt">
     <div class="card"><div class="hd"><h2>Tarifas de vigilancia</h2></div><div class="bd law">
-      <div class="item"><span class="tag">Ley 356/1994</span><div><h4>Estatuto de Vigilancia y Seguridad Privada</h4><p>Define los servicios, las modalidades (fija, móvil, escoltas, con medios tecnológicos) y la inspección de la Supervigilancia.</p></div></div>
-      <div class="item"><span class="tag">Dec. 4950/2007</span><div><h4>Tarifas mínimas, compilado en el Decreto 1070 de 2015</h4><p>La tarifa mínima es el costo directo (factor × SMMLV, que cubre la nómina del puesto 24 h) más un porcentaje de administración y supervisión: 8 % sin arma, 10 % con arma y 11 % con canino. Cobrar por debajo puede ser sancionado.</p></div></div>
-      <div class="item"><span class="tag">Supervigilancia 2026</span><div><h4>Factores de proporcionalidad 2026</h4><p>9,77 SMMLV del 1 de enero al 30 de junio; 9,85 del 1 al 14 de julio (recargo dominical sube al 90 %); 10,21 desde el 15 de julio (jornada de 42 h). Referencia en los tarifadores: Resolución 20251300000115CS/2025.</p></div></div>
-      <div class="item"><span class="tag">Art. 462-1 E.T.</span><div><h4>IVA sobre AIU</h4><p>En vigilancia la base gravable es el AIU, que no puede ser inferior al 10 % del valor del contrato: IVA 19 % × 10 % = 1,9 % efectivo sobre el valor antes de IVA.</p></div></div>
-      <div class="item"><span class="tag">Dec. 2025</span><div><h4>Salario mínimo y auxilio de transporte 2026</h4><p>SMMLV $1.750.905 y auxilio de transporte $249.095.</p></div></div>
+      <div class="item"><span class="tag">Ley 356/1994</span><div><h4>Estatuto de Vigilancia y Seguridad Privada</h4><p>Define servicios y modalidades, y la inspección de la Supervigilancia.</p></div></div>
+      <div class="item"><span class="tag">Dec. 1070/2015</span><div><h4>Tarifas mínimas (compila el Dec. 4950/2007)</h4><p>Costo directo (factor × SMMLV) más administración y supervisión: 8 % sin arma, 10 % con arma, 11 % con canino. Cobrar por debajo puede ser sancionado.</p></div></div>
+      <div class="item"><span class="tag">Supervigilancia 2026</span><div><h4>Factores 2026</h4><p>9,77 del 1 ene al 30 jun; 9,85 del 1 al 14 jul; 10,21 desde el 15 jul.</p></div></div>
+      <div class="item"><span class="tag">Art. 462-1 E.T.</span><div><h4>IVA sobre AIU</h4><p>IVA 19 % sobre una base del 10 %: 1,9 % efectivo sobre el valor antes de IVA.</p></div></div>
+      <div class="item"><span class="tag">2026</span><div><h4>Salario mínimo y auxilio de transporte</h4><p>SMMLV $1.750.905 y auxilio de transporte $249.095.</p></div></div>
     </div></div>
-    <div class="card"><div class="hd"><h2>Legislación laboral (Ministerio del Trabajo)</h2></div><div class="bd law">
-      <div class="item"><span class="tag">Ley 2101/2021</span><div><h4>Reducción de la jornada</h4><p>44 h semanales hasta el 14 de julio de 2026 (220 h/mes) y 42 h desde el 15 de julio de 2026 (210 h/mes). El salario no baja, así que la hora ordinaria sube de $7.959 a $8.338.</p></div></div>
-      <div class="item"><span class="tag">Ley 2466/2025</span><div><h4>Reforma laboral</h4><p>Trabajo nocturno de 7:00 p. m. a 6:00 a. m. Recargo dominical y festivo: 80 % hasta el 30 de junio de 2026, 90 % desde el 1 de julio de 2026 y 100 % desde el 1 de julio de 2027.</p></div></div>
-      <div class="item"><span class="tag">CST arts. 168–179</span><div><h4>Recargos y horas extra</h4><p>Recargo nocturno 35 %; extra diurna 25 %; extra nocturna 75 %; se acumulan con el dominical. Máximo 2 horas extra diarias y 12 semanales.</p></div></div>
-      <div class="item"><span class="tag">CST / Ley 52/1975</span><div><h4>Prestaciones sociales</h4><p>Cesantías 8,33 % e intereses del 12 % anual; prima 8,33 % (ambas incluyen el auxilio de transporte en la base); vacaciones 15 días hábiles (4,17 %); dotación 3 veces al año (art. 230).</p></div></div>
-      <div class="item"><span class="tag">Ley 100/1993</span><div><h4>Seguridad social</h4><p>Pensión 16 % (12 % empleador, 4 % trabajador); salud 12,5 % (8,5 % empleador, 4 % trabajador); ARL según clase de riesgo (Dec. 1772/1994).</p></div></div>
-      <div class="item"><span class="tag">Art. 114-1 E.T.</span><div><h4>Exoneración de aportes</h4><p>Personas jurídicas declarantes de renta no pagan salud empleador, SENA ni ICBF por trabajadores que devenguen menos de 10 SMMLV. Caja de compensación 4 % (Ley 21/1982) siempre se paga.</p></div></div>
-    </div></div>
-  </div>
-  <div class="alert info mt"><span>ℹ️</span><div>Esta herramienta aplica la normativa conocida a octubre de 2026. Las tasas de ICA de Pasto, la contribución a la Supervigilancia y la clase de riesgo ARL dependen de la situación particular de la empresa: confírmelas con el contador y la ARL.</div></div>
-</section>
-
-<!-- ================= 6. DIAGNÓSTICO ================= -->
-<section class="view" id="v-diagnostico">
-  <div class="page-title">
-    <div>
-      <h2>Diagnóstico de los tarifadores</h2>
-      <p>Revisión hoja por hoja de <b>tarifador 2016_sandra.xlsx</b> (6 hojas) y <b>01 TARIFADOR VIGILANCIA 2026 V1.xlsx</b> de Francisco Coral (4 hojas): qué se corrigió, qué se tomó de cada uno y qué se agregó.</p>
-    </div>
-  </div>
-  <div class="grid g2">
-    <div class="card"><div class="hd"><h2>Tarifador de Sandra: hallazgos</h2></div><div class="bd find">
-      <div class="f crit"><h4><span class="badge bad">Crítico</span> El auxilio de transporte de la hoja de nómina viene de otro archivo</h4><p><code>'estructura y costos de nómina'!B5</code> apunta a <code>[2]Tarifa Descuento Jul-Dic 2026!U5</code>, un libro externo, y trae $8.508.968 en vez de $249.095. El costo por guarda queda en $13,8 millones y el puesto de 3 guardas en $41,5 millones, más del doble de lo que se factura.</p></div>
-      <div class="f crit"><h4><span class="badge bad">Crítico</span> La matriz financiera (Hoja2) está rota</h4><p>Usa <code>[1]Costos Empleador - Trabajador!C39</code> (#REF!) y fórmulas sobre celdas vacías (<code>=C6-C7</code>, <code>=C11/C8</code> → #DIV/0!). La columna de valores proyectados está digitada a mano, no calculada, y no se actualiza.</p></div>
-      <div class="f high"><h4><span class="badge warn">Alto</span> Factores escritos dentro de las fórmulas</h4><p>Hay fórmulas como <code>U3*9.85</code> o <code>U3*10.21</code> y la póliza aparece como <code>1000*3</code> en unas hojas y <code>G5*3</code> (900) en otras. La hoja "01 al 14 jul" tarifa con 9,85 pero calcula los valores hora con 10,21. Cada año hay que buscar números escondidos.</p></div>
-      <div class="f high"><h4><span class="badge warn">Alto</span> Recargos estimados como un 35 % fijo</h4><p>No separa recargo nocturno (35 %), dominical/festivo (80 %, luego 90 %) ni horas extra, y no refleja la jornada de 42 h. Además la caja de compensación se calcula sobre una base que incluye el auxilio de transporte.</p></div>
-      <div class="f high"><h4><span class="badge warn">Alto</span> Descuentos por debajo de la tarifa mínima, sin aviso</h4><p>La hoja "01 al 14 j" aplica un 20 %: $14.964.246 frente a una tarifa mínima de $18.705.307. Ninguna hoja avisa que eso queda por debajo del mínimo regulado.</p></div>
-      <div class="f med"><h4><span class="badge info">Medio</span> Validaciones frágiles</h4><p>"Día" y "día" se tratan distinto; "Mes" no es "Mensual" y cae en otra rama por accidente; con "Día" la cantidad de guardas pasa a 0,1 y altera el costo 24 h. Hay cuatro hojas casi iguales que se mantienen por separado.</p></div>
-      <div class="f good"><h4><span class="badge ok">Se conserva</span> Lo que funciona bien</h4><p>La estructura costo directo → administración/supervisión → base IVA 10 % → IVA 19 %; el reparto 47,59 % diurno / 52,41 % nocturno; los valores hora y turno; el cálculo inverso del descuento (total ÷ 1,019); la exoneración de salud del art. 114-1 E.T.</p></div>
-    </div></div>
-    <div class="card"><div class="hd"><h2>Tarifador de Francisco Coral: qué se tomó</h2></div><div class="bd find">
-      <div class="f good"><h4><span class="badge ok">Adoptado</span> Los tres factores 2026 en un solo bloque</h4><p>9,77 / 9,85 / 10,21 juntos y el mismo servicio liquidado en los tres períodos. Aquí son una tabla editable y la tarifa se elige sola según la fecha.</p></div>
-      <div class="f good"><h4><span class="badge ok">Adoptado</span> "Días variados semana"</h4><p>Horario distinto por día (lunes a festivo), con validación de 13 h diurnas y 11 h nocturnas, para servicios que no son 24 h.</p></div>
-      <div class="f good"><h4><span class="badge ok">Adoptado</span> Tarifa acordada</h4><p>A partir del presupuesto del cliente calcula el descuento implícito y reparte el valor en costo directo, AIU e IVA. Ahora también muestra la utilidad que queda.</p></div>
-      <div class="f good"><h4><span class="badge ok">Adoptado</span> Texto automático del servicio y nómina detallada</h4><p>La descripción "Servicio de vigilancia… en el siguiente horario" pasa a la cotización. También se toman la tabla de clases ARL, el cálculo del neto del trabajador y la nota del cambio de jornada 44 h → 42 h.</p></div>
-      <div class="f high"><h4><span class="badge warn">Corregido</span> Errores del archivo de Coral que no se copiaron</h4><p>ARL clase I (0,522 %), inadecuada para guardas; cobro de salud 8,5 %, ICBF y SENA sin la exoneración; cesantías y prima sin auxilio de transporte en la base; en "Tarifa con Descuento" el período 15 jul–dic usa el costo del período 1–14 jul (<code>Z19</code>); referencias vacías (<code>AB102</code>, <code>AG72</code>) y rótulos "SALARIO 2024".</p></div>
-      <div class="f med"><h4><span class="badge info">Nuevo</span> Lo que ninguno de los dos tenía</h4><p>Utilidad real del puesto, punto de equilibrio y descuento máximo, escenarios de 3, 4 y 5 guardas con control de horas extra legales, aviso de tarifa mínima, cotización imprintable con membrete, parámetros exportables y vista para celular.</p></div>
+    <div class="card"><div class="hd"><h2>Legislación laboral</h2></div><div class="bd law">
+      <div class="item"><span class="tag">CST art. 145</span><div><h4>Salario mínimo</h4><p>Ningún guarda de jornada completa puede ganar menos del SMMLV.</p></div></div>
+      <div class="item"><span class="tag">Ley 2101/2021</span><div><h4>Jornada</h4><p>44 h semanales hasta el 14 jul 2026 y 42 h desde el 15 jul 2026. Máximo 2 h extra diarias y 12 semanales.</p></div></div>
+      <div class="item"><span class="tag">Ley 2466/2025</span><div><h4>Reforma laboral</h4><p>Nocturno desde las 7:00 p. m. Dominical y festivo: 80 % hasta el 30 jun 2026, 90 % desde el 1 jul 2026, 100 % desde el 1 jul 2027.</p></div></div>
+      <div class="item"><span class="tag">CST / Ley 52/1975</span><div><h4>Prestaciones</h4><p>Cesantías 8,33 % + intereses 12 % anual, prima 8,33 %, vacaciones 4,17 %, dotación 3 veces al año.</p></div></div>
+      <div class="item"><span class="tag">Ley 100/1993</span><div><h4>Seguridad social</h4><p>Pensión 12 % empleador y 4 % trabajador; salud 8,5 % y 4 %; ARL según clase de riesgo.</p></div></div>
+      <div class="item"><span class="tag">Art. 114-1 E.T.</span><div><h4>Exoneración</h4><p>Personas jurídicas no pagan salud empleador, SENA ni ICBF por trabajadores con menos de 10 SMMLV. La caja (4 %) sí se paga.</p></div></div>
+      <div class="item"><span class="tag">CST art. 128</span><div><h4>Pagos no salariales</h4><p>No pueden reemplazar salario. Lo que pase del 40 % del total entra a la base de aportes (Ley 1393/2010).</p></div></div>
     </div></div>
   </div>
 </section>
@@ -632,7 +707,7 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
 <script>
 (function(){
 'use strict';
-const STORE_P='tarifadorMasivos.params.v1', STORE_Q='tarifadorMasivos.quote.v1';
+const STORE_P='tarifadorMasivos.params.v1', STORE_Q='tarifadorMasivos.quote.v2';
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo','Festivo'];
 
 const DEFAULTS={
@@ -662,7 +737,8 @@ const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth
 const QDEF=()=>({cliente:'',nit:'',contacto:'',direccion:'',ciudad:'San Juan de Pasto',numero:'COT-'+new Date().getFullYear()+'-'+String(Math.floor(Math.random()*9000)+1000),
   fecha:today(),modalidad:'CON',tipo:'24h',periodo:'auto',puestos:1,meses:12,
   horario:DIAS.map(()=>[13,11]),dias:1,diasFest:0,hdEv:13,hnEv:11,
-  ajuste:'ninguno',descuento:0,acordado:0,guardasModo:'auto',guardas:4});
+  ajuste:'ninguno',descuento:0,acordado:0,guardasModo:'auto',guardas:4,
+  aj:{salario:null,bonif:null,dotacion:null,relevos:null},margenObj:5,descSim:10});
 
 const clone=o=>JSON.parse(JSON.stringify(o));
 function merge(base,over){ if(Array.isArray(base)) return Array.isArray(over)?over:base;
@@ -681,6 +757,7 @@ const pc=(v,d=1)=>isFinite(v)?(v*100).toLocaleString('es-CO',{minimumFractionDig
 const nf=(v,d=2)=>Number(v).toLocaleString('es-CO',{maximumFractionDigits:d});
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const AL=(cls,ic,html)=>`<div class="alert ${cls}"><span class="ic">${ic}</span><div>${html}</div></div>`;
 
 /* ---------- Núcleo de cálculo ---------- */
 function periodoDe(q){
@@ -709,32 +786,39 @@ function calcTarifa(q,per){
   const aiu=Math.round(cd*aiuP), sub=cd+aiu, base=Math.round(sub*P.baseIVA/100), iva=Math.round(base*P.iva/100);
   return {cd24,vhD,vhN,cd,aiuP,aiu,sub,base,iva,total:sub+iva,h,per,mod};
 }
+const KIVA=()=>1+P.baseIVA/100*P.iva/100;
 function ajustar(t,q,forceDesc){
-  const k=1+P.baseIVA/100*P.iva/100;
   let total=t.total;
   if(forceDesc!=null) total=Math.round(t.total*(1-forceDesc));
   else if(q.ajuste==='descuento') total=Math.round(t.total*(1-clamp(n0(q.descuento),0,100)/100));
   else if(q.ajuste==='acordado'&&n0(q.acordado)>0) total=Math.round(n0(q.acordado));
   if(total===t.total) return {total,sub:t.sub,iva:t.iva,base:t.base,cd:t.cd,aiu:t.aiu,desc:0,bajo:false};
-  const sub=total/k, cd=sub/(1+t.aiuP);
+  const sub=total/KIVA(), cd=sub/(1+t.aiuP);
   return {total,sub,iva:total-sub,base:sub*P.baseIVA/100,cd,aiu:sub-cd,desc:t.total>0?1-total/t.total:0,bajo:total<t.total};
 }
-function calcNomina(q,per,h,guardasOverride){
-  const N_=P.nomina, sal=n0(N_.salario)>0?n0(N_.salario):P.smmlv;
+// valor efectivo de un ajuste de nómina: el de la cotización si existe, si no el de Parámetros
+function nv(k){const v=Q.aj&&Q.aj[k];return (v!==null&&v!==undefined&&v!=='')?n0(v):null;}
+function salarioBase(){const s=nv('salario');if(s!==null&&s>0)return s;return n0(P.nomina.salario)>0?n0(P.nomina.salario):P.smmlv;}
+function calcNomina(q,per,h,opt){
+  opt=opt||{};
+  const N_=P.nomina;
+  const sal=opt.sal!=null?opt.sal:salarioBase();
+  const bonifG=nv('bonif')??n0(N_.bonif), dotG=nv('dotacion')??n0(N_.dotacion), relP=nv('relevos')??n0(N_.relevos);
   const horasMes=per.jornada*5, vh=sal/horasMes, cap=per.jornada*30/7;
   let hDo=0,hNo=0,hDd=0,hNd=0;
   h.forEach(x=>{if(x.dom){hDd+=x.cnt*x.hd;hNd+=x.cnt*x.hn;}else{hDo+=x.cnt*x.hd;hNo+=x.cnt*x.hn;}});
   const T=hDo+hNo+hDd+hNd, fte=T/cap;
-  const fteMode=guardasOverride==='fte';
-  const manual=!fteMode&&(guardasOverride!=null||q.guardasModo==='manual');
-  const N=fteMode?fte:(guardasOverride!=null?guardasOverride:(manual?Math.max(1,Math.round(n0(q.guardas))):fte));
+  let N,manual;
+  if(opt.guardas==='fte'){N=fte;manual=false;}
+  else if(opt.guardas!=null){N=opt.guardas;manual=true;}
+  else {manual=q.guardasModo==='manual';N=manual?Math.max(1,Math.round(n0(q.guardas))):fte;}
   const E=Math.max(0,T-N*cap), e=T>0?E/T:0, o=1-e;
   const rd=per.recDom/100, rn=N_.recNoc/100, xd=N_.extDia/100, xn=N_.extNoc/100;
   const salarios=N*sal;
   const recNoc=vh*rn*(hNo+hNd)*o;
   const recDom=vh*rd*(hDd+hNd)*o;
   const extras=vh*(hDo*e*(1+xd)+hNo*e*(1+xn)+hDd*e*(1+xd+rd)+hNd*e*(1+xn+rd));
-  const aux=sal<=2*P.smmlv?N*P.aux:0, bonif=N*n0(N_.bonif);
+  const aux=sal<=2*P.smmlv?N*P.aux:0, bonif=N*bonifG;
   const ibc=salarios+recNoc+recDom+extras;
   const devengado=ibc+aux+bonif;
   const ces=(ibc+aux)*N_.ces/100, intc=ces*N_.intCes/100, prima=(ibc+aux)*N_.prima/100, vac=(salarios+recNoc+recDom)*N_.vac/100;
@@ -743,13 +827,13 @@ function calcNomina(q,per,h,guardasOverride){
   const pen=ibc*N_.pension/100, salud=N_.exoSalud?0:ibc*N_.salud/100, arl=ibc*arlP, ccf=ibc*N_.ccf/100,
         icbf=N_.exoPara?0:ibc*N_.icbf/100, sena=N_.exoPara?0:ibc*N_.sena/100;
   const ss=pen+salud+arl+ccf+icbf+sena;
-  const dot=N*N_.dotacion, capac=N*N_.capacitacion, pol=N*P.poliza;
+  const dot=N*dotG, capac=N*N_.capacitacion, pol=N*P.poliza;
   const base=devengado+prest+ss;
-  const relevos=base*N_.relevos/100;
+  const relevos=base*relP/100;
   const total=base+dot+capac+pol+relevos;
   const extraSemana=N>0?E/N/(30/7):0;
   const descS=ibc*N_.descSalud/100, descP=ibc*N_.descPension/100;
-  return {sal,vh,horasMes,cap,hDo,hNo,hDd,hNd,T,fte,N,manual,E,extraSemana,salarios,recNoc,recDom,extras,aux,bonif,ibc,devengado,
+  return {sal,vh,horasMes,cap,hDo,hNo,hDd,hNd,T,fte,N,manual,E,extraSemana,salarios,recNoc,recDom,extras,aux,bonif,bonifG,dotG,relP,ibc,devengado,
     ces,intc,prima,vac,prest,pen,salud,arl,arlP,ccf,icbf,sena,ss,dot,capac,pol,relevos,total,descS,descP,neto:devengado-descS-descP};
 }
 function calcUtil(a,nom,mod){
@@ -759,7 +843,18 @@ function calcUtil(a,nom,mod){
   const uai=contrib-sup-adm-ica, renta=Math.max(0,uai)*P.op.renta/100, un=uai-renta;
   const pctSum=(P.op.supervision+P.op.administracion+P.op.ica)/100;
   const Rbe=(nom.total+op)/(1-pctSum);
-  return {R,op,contrib,sup,adm,ica,uai,renta,un,Rbe,mUAI:R>0?uai/R:0,mUN:R>0?un/R:0,mContrib:R>0?contrib/R:0};
+  return {R,op,contrib,sup,adm,ica,uai,renta,un,Rbe,pctSum,mUAI:R>0?uai/R:0,mUN:R>0?un/R:0};
+}
+// descuento máximo para conservar un margen m (antes de renta)
+function descMaxPara(t,nom,u,m){const Rm=(nom.total+u.op)/(1-u.pctSum-m);return 1-Rm/t.sub;}
+// salario máximo que permite un margen m con un precio dado (búsqueda binaria)
+function salMaxPara(t,a,m,mod){
+  const f=s=>{const nn=calcNomina(Q,t.per,t.h,{sal:s});const uu=calcUtil(a,nn,mod);return uu.uai-m*uu.R;};
+  let lo=0,hi=P.smmlv*6;
+  if(f(lo)<0) return 0;
+  if(f(hi)>=0) return hi;
+  for(let i=0;i<50;i++){const mid=(lo+hi)/2;if(f(mid)>=0)lo=mid;else hi=mid;}
+  return lo;
 }
 function compute(q){
   const {per,idx}=periodoDe(q);
@@ -773,30 +868,29 @@ function descripcion(q,r){
   if(q.tipo==='dias'){const x=r.t.h[0];return `Servicio de vigilancia y seguridad privada ${mod}, servicio eventual por ${n0(q.dias)} día(s)${n0(q.diasFest)>0?` (${n0(q.diasFest)} dominical/festivo)`:''}, ${x.hd} horas diurnas – ${x.hn} horas nocturnas por día.`;}
   const groups=[];r.t.h.forEach(x=>{const k=x.hd+'|'+x.hn;const g=groups[groups.length-1];if(x.hd+x.hn===0)return;if(g&&g.k===k&&g.last===DIAS.indexOf(x.dia)-1){g.to=x.dia;g.last++;}else groups.push({k,from:x.dia,to:x.dia,last:DIAS.indexOf(x.dia),hd:x.hd,hn:x.hn});});
   const txt=groups.map(g=>`${g.from===g.to?g.from:g.from+' a '+g.to}: ${g.hd} h diurnas – ${g.hn} h nocturnas`).join('; ');
-  return `Servicio de vigilancia y seguridad privada ${mod}, días variados por semana/mes, en el siguiente horario: ${txt||'sin horas asignadas'}.`;
+  return `Servicio de vigilancia y seguridad privada ${mod}, en el siguiente horario mensual: ${txt||'sin horas asignadas'}.`;
 }
 
-/* ---------- UI: construcción ---------- */
+/* ---------- Construcción de la interfaz ---------- */
 function buildStatic(){
-  $('#segModalidad').innerHTML=P.modalidades.map(m=>`<button data-v="${esc(m.id)}">${esc(m.nombre)} · ${nf(m.aiu)}%</button>`).join('');
-  $('#q-periodo').innerHTML=`<option value="auto">Automático según fecha</option>`+P.periodos.map((p,i)=>`<option value="${i}">${esc(p.nombre)} · factor ${nf(p.factor)}</option>`).join('');
-  let s=`<thead><tr><th></th>${DIAS.map(d=>`<th>${d.slice(0,3)}</th>`).join('')}</tr></thead><tbody>`;
-  s+=`<tr><td>Horas diurnas</td>${DIAS.map((d,i)=>`<td><input type="number" min="0" max="${P.hDiaMax}" step="1" data-h="${i}.0" aria-label="Horas diurnas ${d}"></td>`).join('')}</tr>`;
-  s+=`<tr><td>Horas nocturnas</td>${DIAS.map((d,i)=>`<td><input type="number" min="0" max="${P.hNocheMax}" step="1" data-h="${i}.1" aria-label="Horas nocturnas ${d}"></td>`).join('')}</tr></tbody>`;
-  $('#schedTable').innerHTML=s;
-  $('#lblDiasMes').textContent=`cada día de lunes a sábado ×${P.diasMes.semana}, domingos ×${P.diasMes.dom}, festivos ×${P.diasMes.fest}`;
-  // Parámetros: tablas
-  $('#tblParPeriodos').innerHTML=`<thead><tr><th>Tramo</th><th>Desde</th><th>Hasta</th><th class="num">Factor SMMLV</th><th class="num">Jornada (h/sem)</th><th class="num">Recargo dominical %</th><th class="num">Costo directo 24 h</th></tr></thead><tbody>`+
+  $('#segModalidad').innerHTML=P.modalidades.map(m=>`<button data-v="${esc(m.id)}">${esc(m.nombre)}<small>adm. ${nf(m.aiu)} %</small></button>`).join('');
+  $('#q-periodo').innerHTML=`<option value="auto">Automático según la fecha</option>`+P.periodos.map((p,i)=>`<option value="${i}">${esc(p.nombre)} · factor ${nf(p.factor)}</option>`).join('');
+  $('#days').innerHTML=DIAS.map((d,i)=>`<div class="day"><span class="dn">${d}<small>×${i<6?P.diasMes.semana:i===6?P.diasMes.dom:P.diasMes.fest} en el mes</small></span>
+     <input type="number" inputmode="numeric" min="0" max="${P.hDiaMax}" step="1" data-h="${i}.0" aria-label="Horas diurnas ${d}" title="Horas diurnas">
+     <input type="number" inputmode="numeric" min="0" max="${P.hNocheMax}" step="1" data-h="${i}.1" aria-label="Horas nocturnas ${d}" title="Horas nocturnas"></div>`).join('');
+  $('#tblParPeriodos').innerHTML=`<thead><tr><th>Tramo</th><th>Desde</th><th>Hasta</th><th class="num">Factor</th><th class="num">Jornada h/sem</th><th class="num">Rec. dominical %</th><th class="num">Costo directo 24 h</th></tr></thead><tbody>`+
     P.periodos.map((p,i)=>`<tr><td><input type="text" data-p="periodos.${i}.nombre"></td><td><input type="date" data-p="periodos.${i}.desde"></td><td><input type="date" data-p="periodos.${i}.hasta"></td><td><input type="number" step="0.01" data-p="periodos.${i}.factor"></td><td><input type="number" data-p="periodos.${i}.jornada"></td><td><input type="number" data-p="periodos.${i}.recDom"></td><td class="num" id="cd24_${i}"></td></tr>`).join('')+`</tbody>`;
-  $('#tblParMod').innerHTML=`<thead><tr><th>Modalidad</th><th class="num">Adm. y supervisión %</th><th class="num">Costo operativo/puesto/mes</th></tr></thead><tbody>`+
+  $('#tblParMod').innerHTML=`<thead><tr><th>Modalidad</th><th class="num">Adm. y sup. %</th><th class="num">Costo operativo/mes</th></tr></thead><tbody>`+
     P.modalidades.map((m,i)=>`<tr><td><input type="text" data-p="modalidades.${i}.nombre"></td><td><input type="number" step="0.1" data-p="modalidades.${i}.aiu"></td><td><input type="number" data-p="modalidades.${i}.costoPuesto"></td></tr>`).join('')+`</tbody>`;
-  $('#tblParArl').innerHTML=`<thead><tr><th>Clase</th><th class="num">Tarifa %</th></tr></thead><tbody>`+
+  $('#tblParArl').innerHTML=`<thead><tr><th>Clase de riesgo</th><th class="num">Tarifa ARL %</th></tr></thead><tbody>`+
     Object.keys(P.arl).map(k=>`<tr><td>Riesgo ${k}</td><td><input type="number" step="0.001" data-p="arl.${k}"></td></tr>`).join('')+`</tbody>`;
   fillInputs();
 }
 function fillInputs(){
   $$('[data-q]').forEach(el=>{const v=Q[el.dataset.q];if(document.activeElement!==el)el.value=v??'';});
   $$('[data-h]').forEach(el=>{const [i,j]=el.dataset.h.split('.');if(document.activeElement!==el)el.value=Q.horario[i][j];});
+  $$('[data-aj]').forEach(el=>{if(document.activeElement===el)return;const k=el.dataset.aj,v=Q.aj[k];
+    el.value=(v!==null&&v!==undefined&&v!=='')?v:(k==='salario'?salarioBase():k==='bonif'?P.nomina.bonif:k==='dotacion'?P.nomina.dotacion:P.nomina.relevos);});
   $$('[data-p]').forEach(el=>{const v=getPath(P,el.dataset.p);if(el.type==='checkbox')el.checked=!!v;else if(document.activeElement!==el)el.value=v??'';});
 }
 function setSeg(id,val){$$('#'+id+' button').forEach(b=>b.classList.toggle('on',b.dataset.v===val));}
@@ -810,72 +904,69 @@ function render(){
   $('#boxCustom').style.display=Q.tipo==='custom'?'':'none';
   $('#boxDias').style.display=Q.tipo==='dias'?'':'none';
   $('#fMeses').style.display=Q.tipo==='dias'?'none':'';
+  $('#ajFields').style.display=Q.ajuste==='ninguno'?'none':'';
   $('#fDesc').style.display=Q.ajuste==='descuento'?'':'none';
   $('#fAcord').style.display=Q.ajuste==='acordado'?'':'none';
-  $('#q-guardas').style.display=Q.guardasModo==='manual'?'':'none';
+  $('#fGuardas').style.display=Q.guardasModo==='manual'?'':'none';
   $$('[data-h]').forEach(el=>{const [i,j]=el.dataset.h.split('.');const v=n0(Q.horario[i][j]);el.classList.toggle('err',v<0||v>(j==='0'?P.hDiaMax:P.hNocheMax));});
   ['hdEv','hnEv'].forEach((k,j)=>{const v=n0(Q[k]);$('#q-'+k).classList.toggle('err',v<0||v>(j?P.hNocheMax:P.hDiaMax));});
 
-  // Header
   $('#hdrEmpresa').textContent=P.empresa.nombre||'Empresa';
   $('#hdrCiudad').textContent=P.empresa.ciudad||'';
   $('#hdrSmmlv').textContent=money(P.smmlv);
   $('#hdrPeriodo').textContent=per.nombre+' '+P.anio;
   $('#hdrFactor').textContent=nf(per.factor);
-  $('#footTxt').innerHTML=`${esc(P.empresa.nombre)} · Tarifador de vigilancia ${P.anio}. Tarifas mínimas de la Superintendencia de Vigilancia y Seguridad Privada (Decreto 1070 de 2015) y legislación laboral vigente (Leyes 2101 de 2021 y 2466 de 2025). Construido a partir del tarifador de Sandra Milena, con aportes del tarifador de Francisco Coral.`;
+  $('#footTxt').innerHTML=`${esc(P.empresa.nombre)} · Tarifador de vigilancia ${P.anio}. Tarifas mínimas de la Superintendencia de Vigilancia y Seguridad Privada (Decreto 1070 de 2015) y legislación laboral vigente (Leyes 2101 de 2021 y 2466 de 2025).`;
 
-  // Resultado
-  const unidad=Q.tipo==='dias'?'Valor total del servicio eventual':'Valor mensual por puesto';
+  const unidad=Q.tipo==='dias'?'Valor total del servicio':'Valor mensual por puesto';
   $('#resTitulo').textContent=unidad;
-  $('#resTotal').innerHTML=money(a.total);
-  $('#resSub').textContent=`IVA incluido · Tarifa ${per.nombre} ${P.anio} · factor ${nf(per.factor)} SMMLV`;
-  const lines=[
-    ['Costo directo',a.cd],[`Administración y supervisión ${nf(t.mod.aiu)} %`,a.aiu],['Valor antes de IVA',a.sub],
-    [`Base IVA ${nf(P.baseIVA)} %`,a.base],[`IVA ${nf(P.iva)} %`,a.iva]
-  ];
+  $('#resTotal').textContent=money(a.total);
+  $('#resSub').textContent=`IVA incluido · tarifa ${per.nombre} ${P.anio} · factor ${nf(per.factor)}`;
+  const lines=[['Costo directo',a.cd],[`Administración y supervisión ${nf(t.mod.aiu)} %`,a.aiu],['Valor antes de IVA',a.sub],[`IVA (${nf(P.iva)} % sobre el ${nf(P.baseIVA)} %)`,a.iva]];
   let lh=lines.map(([l,v])=>`<div class="rline"><span>${l}</span><span>${money(v)}</span></div>`).join('');
-  lh+=`<div class="rline total"><span>Total ${Q.tipo==='dias'?'servicio':'mensual'}</span><span>${money(a.total)}</span></div>`;
-  if(a.desc!==0) lh+=`<div class="rline"><span>Tarifa plena (mínima)</span><span>${money(t.total)}</span></div><div class="rline"><span>${a.desc>0?'Descuento':'Sobreprecio'} aplicado</span><span>${pc(Math.abs(a.desc),2)}</span></div>`;
+  lh+=`<div class="rline total"><span>Total</span><span>${money(a.total)}</span></div>`;
+  if(a.desc!==0) lh+=`<div class="rline"><span>Tarifa plena (mínimo legal)</span><span>${money(t.total)}</span></div><div class="rline"><span>${a.desc>0?'Descuento':'Valor por encima del mínimo'}</span><span>${pc(Math.abs(a.desc),2)}</span></div>`;
   $('#resLines').innerHTML=lh;
   const totalMes=a.total*R.puestos;
   $('#resKpis').innerHTML=Q.tipo==='dias'
     ? `<div class="kpi-mini"><div class="l">Puestos</div><div class="v">${R.puestos}</div></div><div class="kpi-mini"><div class="l">Total con IVA</div><div class="v">${money(totalMes)}</div></div>`
-    : `<div class="kpi-mini"><div class="l">${R.puestos} puesto(s) / mes</div><div class="v">${money(totalMes)}</div></div><div class="kpi-mini"><div class="l">Contrato ${R.meses} meses</div><div class="v">${money(totalMes*R.meses)}</div></div>
-       <div class="kpi-mini"><div class="l">Valor día puesto</div><div class="v">${money(a.total/30)}</div></div><div class="kpi-mini"><div class="l">Margen antes de renta</div><div class="v">${pc(u.mUAI)}</div></div>`;
+    : `<div class="kpi-mini"><div class="l">${R.puestos} puesto(s) al mes</div><div class="v">${money(totalMes)}</div></div><div class="kpi-mini"><div class="l">Contrato ${R.meses} meses</div><div class="v">${money(totalMes*R.meses)}</div></div>`;
   $('#resDesc').textContent=descripcion(Q,R);
 
-  // Alertas de ajuste
+  // barra móvil
+  $('#mbarL').textContent=unidad;
+  $('#mbarV').textContent=money(a.total);
+  $('#mbarM').textContent=pc(u.mUAI);
+  $('#mbarM').style.color=u.uai<0?'#ff9b93':'#9fe3b8';
+
   const al=[];
-  if(a.bajo) al.push(`<div class="alert bad"><span>⚠️</span><div><b>Precio por debajo de la tarifa mínima regulada</b> (${money(t.total)}). Diferencia: ${money(t.total-a.total)} por puesto/mes (${pc(a.desc,2)}). Puede acarrear sanciones de la Supervigilancia (Decreto 1070 de 2015) salvo excepción legal documentada.</div></div>`);
-  if(Q.ajuste==='acordado'&&a.desc<0) al.push(`<div class="alert ok"><span>✔</span><div>El valor acordado supera la tarifa mínima en ${money(a.total-t.total)}.</div></div>`);
-  if(u.uai<0) al.push(`<div class="alert bad"><span>⛔</span><div><b>Este precio genera pérdida</b>: ${money(u.uai)} por puesto/mes antes de impuestos.</div></div>`);
-  if(!al.length&&Q.ajuste!=='ninguno') al.push(`<div class="alert info"><span>ℹ️</span><div>Sin ajuste efectivo: se cotiza la tarifa plena.</div></div>`);
+  if(a.bajo) al.push(AL('bad','!',`<b>Queda por debajo de la tarifa mínima</b> (${money(t.total)}) en ${money(t.total-a.total)} (${pc(a.desc,2)}). La Supervigilancia puede sancionarlo.`));
+  if(Q.ajuste==='acordado'&&a.desc<0) al.push(AL('ok','✓',`El valor acordado supera la tarifa mínima en ${money(a.total-t.total)}.`));
+  if(u.uai<0) al.push(AL('bad','!',`<b>Con este precio el puesto da pérdida</b>: ${money(u.uai)} al mes antes de impuestos.`));
   $('#alertsAjuste').innerHTML=al.join('');
 
-  // Insights
   const ins=[];
-  const descMax=1-u.Rbe/t.sub;
-  ins.push(`<div class="alert ${u.uai>=0?'ok':'bad'}"><span>${u.uai>=0?'💰':'⛔'}</span><div>Utilidad antes de renta: <b>${money(u.uai)}</b> por puesto/mes (${pc(u.mUAI)} del ingreso sin IVA). Utilidad neta estimada: <b>${money(u.un)}</b>.</div></div>`);
-  ins.push(`<div class="alert info"><span>🎯</span><div>Punto de equilibrio: <b>${money(u.Rbe*(1+P.baseIVA*P.iva/10000))}</b> con IVA. ${descMax>0?`El descuento máximo sin perder dinero es <b>${pc(descMax)}</b>, aunque todo descuento queda bajo el mínimo legal.`:'<b>La tarifa mínima no alcanza a cubrir los costos</b> con los parámetros actuales.'}</div></div>`);
-  ins.push(`<div class="alert ${nom.extraSemana>P.nomina.maxExtraSemana?'warn':'info'}"><span>👮</span><div>El horario exige <b>${nf(nom.T,0)} h/mes</b>: <b>${nf(nom.fte,2)}</b> guardas de tiempo completo con jornada de ${per.jornada} h. ${nom.manual?`Con ${nom.N} guardas cada uno hace ${nf(nom.extraSemana,1)} h extra por semana${nom.extraSemana>P.nomina.maxExtraSemana?` y <b>se supera el límite legal de ${P.nomina.maxExtraSemana} h</b>`:''}.`:'Cálculo sin horas extra.'}</div></div>`);
-  const ratio=nom.total/t.cd;
-  ins.push(`<div class="alert ${ratio>1?'warn':'info'}"><span>📊</span><div>La nómina real del puesto equivale al <b>${pc(ratio)}</b> del costo directo regulado (${money(t.cd)}).</div></div>`);
+  ins.push(AL(u.uai>=0?'ok':'bad',u.uai>=0?'$':'!',`Utilidad antes de renta: <b>${money(u.uai)}</b> por puesto al mes (${pc(u.mUAI)} del ingreso sin IVA).`));
+  const dmax=1-u.Rbe/t.sub;
+  ins.push(AL('info','i',dmax>0?`Puede bajar hasta <b>${pc(dmax)}</b> sin perder dinero (precio de equilibrio ${money(u.Rbe*KIVA())}). Cualquier descuento queda bajo el mínimo legal.`:`<b>La tarifa mínima no cubre los costos</b> con los valores actuales. Revise el personal en Nómina.`));
+  ins.push(AL(nom.extraSemana>P.nomina.maxExtraSemana?'warn':'info','i',`Se necesitan <b>${nf(nom.fte,2)}</b> guardas de tiempo completo (${nf(nom.T,0)} h al mes, jornada de ${per.jornada} h).${nom.manual?` Con ${nom.N} guardas cada uno hace ${nf(nom.extraSemana,1)} h extra por semana${nom.extraSemana>P.nomina.maxExtraSemana?`: <b>supera el límite legal de ${P.nomina.maxExtraSemana} h</b>`:''}.`:''}`));
   $('#quickInsights').innerHTML=ins.join('');
 
-  // Comparativo de períodos
-  let tp=`<thead><tr><th>Período ${P.anio}</th><th class="num">Factor</th><th class="num">Jornada</th><th class="num">Costo directo</th><th class="num">Adm./Sup.</th><th class="num">IVA</th><th class="num">Total mensual</th><th class="num">Utilidad a. renta</th></tr></thead><tbody>`;
+  let tp=`<thead><tr><th>Tarifa ${P.anio}</th><th class="num">Factor</th><th class="num hide-sm">Costo directo</th><th class="num">Total mensual</th><th class="num">Utilidad</th></tr></thead><tbody>`;
   P.periodos.forEach((p,i)=>{const tt=calcTarifa(Q,p), aa=ajustar(tt,Q), nn=calcNomina(Q,p,tt.h), uu=calcUtil(aa,nn,tt.mod);
-    tp+=`<tr class="${i===idx?'hl':''}${uu.uai<0?' neg':''}"><td>${esc(p.nombre)} ${i===idx?'<span class="badge info">aplicado</span>':''}</td><td class="num">${nf(p.factor)}</td><td class="num">${p.jornada} h</td><td class="num">${money(aa.cd)}</td><td class="num">${money(aa.aiu)}</td><td class="num">${money(aa.iva)}</td><td class="num"><b>${money(aa.total)}</b></td><td class="num">${money(uu.uai)}</td></tr>`;});
+    tp+=`<tr class="${i===idx?'hl':''}${uu.uai<0?' neg':''}"><td>${esc(p.nombre)} ${i===idx?'<span class="badge info">aplicada</span>':''}</td><td class="num">${nf(p.factor)}</td><td class="num hide-sm">${money(aa.cd)}</td><td class="num"><b>${money(aa.total)}</b></td><td class="num">${money(uu.uai)}</td></tr>`;});
   $('#tblPeriodos').innerHTML=tp+'</tbody>';
 
-  renderUtil();renderNomina();renderParamsCalc();save();
+  renderUtil();renderNomina();
+  P.periodos.forEach((p,i)=>{const el=$('#cd24_'+i);if(el)el.textContent=money(P.smmlv*p.factor+P.poliza*P.guardasPoliza);});
+  save();
 }
 
 function renderUtil(){
   const {t,a,nom,u}=R;
   const k=[
-    ['Ingreso sin IVA',money(u.R),'por puesto/mes',''],
-    ['Costo total del personal',money(nom.total),pc(nom.total/u.R)+' del ingreso',''],
+    ['Ingreso sin IVA',money(u.R),'por puesto al mes',''],
+    ['Costo del personal',money(nom.total),pc(nom.total/u.R)+' del ingreso',''],
     ['Utilidad antes de renta',money(u.uai),'margen '+pc(u.mUAI),u.uai>=0?'good':'bad'],
     ['Utilidad neta',money(u.un),`contrato: ${money(u.un*R.puestos*R.meses)}`,u.un>=0?'good':'bad']
   ];
@@ -897,8 +988,8 @@ function renderUtil(){
     (u.un<0?`<div class="it" style="color:var(--bad)"><b>Pérdida: ${money(u.un)}</b></div>`:'');
 
   const steps=[
-    ['Ingreso sin IVA',u.R,'add'],['Personal (nómina total)',-nom.total,'sub'],['Costos operativos',-u.op,'sub'],
-    ['Contribución del puesto',u.contrib,'tot'],['Supervisión',-u.sup,'sub'],['Administración',-u.adm,'sub'],['ICA y contribuciones',-u.ica,'sub'],
+    ['Ingreso sin IVA',u.R,'add'],['Personal',-nom.total,'sub'],['Costos operativos',-u.op,'sub'],
+    ['Supervisión',-u.sup,'sub'],['Administración',-u.adm,'sub'],['ICA y contribuciones',-u.ica,'sub'],
     ['Utilidad antes de renta',u.uai,'tot'],['Renta',-u.renta,'sub'],['Utilidad neta',u.un,'tot']
   ];
   const max=u.R||1;let run=0;
@@ -911,74 +1002,108 @@ function renderUtil(){
 
   const P_=R.puestos, M_=R.meses;
   const rows=[
-    ['sec','Ingresos'],['Valor facturado con IVA',a.total],['(−) IVA generado (no es ingreso)',-a.iva],['Ingreso operacional',u.R,'tot'],
-    ['sec','Costo del personal'],['Salarios básicos',nom.salarios],['Recargos nocturnos y dominicales/festivos',nom.recNoc+nom.recDom],['Horas extra',nom.extras],['Auxilio de transporte',nom.aux],
-    ['Bonificaciones',nom.bonif],['Prestaciones sociales',nom.prest],['Seguridad social y parafiscales',nom.ss],['Dotación y uniformes',nom.dot],['Capacitación, exámenes y credencial',nom.capac],['Póliza colectiva de vida',nom.pol],['Relevos, incapacidades y ausentismo',nom.relevos],['Total costo del personal',nom.total,'tot'],
-    ['sec','Costos y gastos de operación'],['Costos operativos del puesto (comunicaciones, armamento, canino, otros)',u.op],['Supervisión operativa',u.sup],['Administración y ventas',u.adm],['ICA y contribuciones',u.ica],
-    ['sec','Resultado'],['Utilidad antes de impuesto de renta',u.uai,'tot'],[`Impuesto de renta (${nf(P.op.renta)} %)`,u.renta],['Utilidad neta',u.un,'tot']
+    ['sec','Ingresos'],['Valor facturado con IVA',a.total],['(−) IVA (no es ingreso)',-a.iva],['Ingreso operacional',u.R,'tot'],
+    ['sec','Costo del personal'],['Salarios básicos',nom.salarios],['Recargos nocturnos y dominicales',nom.recNoc+nom.recDom],['Horas extra',nom.extras],['Auxilio de transporte',nom.aux],
+    ['Bonificaciones',nom.bonif],['Prestaciones sociales',nom.prest],['Seguridad social y parafiscales',nom.ss],['Dotación',nom.dot],['Capacitación y exámenes',nom.capac],['Póliza de vida',nom.pol],['Relevos y ausentismo',nom.relevos],['Total personal',nom.total,'tot'],
+    ['sec','Gastos de operación'],['Costos del puesto (comunicaciones, armamento, canino)',u.op],['Supervisión operativa',u.sup],['Administración y ventas',u.adm],['ICA y contribuciones',u.ica],
+    ['sec','Resultado'],['Utilidad antes de renta',u.uai,'tot'],[`Impuesto de renta (${nf(P.op.renta)} %)`,u.renta],['Utilidad neta',u.un,'tot']
   ];
-  $('#tblPyG').innerHTML=`<thead><tr><th>Concepto</th><th class="num">Por puesto / mes</th><th class="num">% ingreso</th><th class="num">${P_} puesto(s) / mes</th><th class="num">Contrato (${M_} meses)</th></tr></thead><tbody>`+
-    rows.map(r=>r[0]==='sec'?`<tr class="sec"><td colspan="5">${r[1]}</td></tr>`:`<tr class="${r[2]==='tot'?'tot':''}${r[1]<0&&r[2]==='tot'?' neg':''}"><td>${r[0]}</td><td class="num">${money(r[1])}</td><td class="num">${pc(r[1]/u.R)}</td><td class="num">${money(r[1]*P_)}</td><td class="num">${money(r[1]*P_*M_)}</td></tr>`).join('')+'</tbody>';
+  $('#tblPyG').innerHTML=`<thead><tr><th>Concepto</th><th class="num">Puesto / mes</th><th class="num">%</th><th class="num hide-sm">${P_} puesto(s) / mes</th><th class="num hide-sm">Contrato ${M_} meses</th></tr></thead><tbody>`+
+    rows.map(r=>r[0]==='sec'?`<tr class="sec"><td colspan="5">${r[1]}</td></tr>`:`<tr class="${r[2]==='tot'?'tot':''}${r[1]<0&&r[2]==='tot'?' neg':''}"><td>${r[0]}</td><td class="num">${money(r[1])}</td><td class="num">${pc(r[1]/u.R)}</td><td class="num hide-sm">${money(r[1]*P_)}</td><td class="num hide-sm">${money(r[1]*P_*M_)}</td></tr>`).join('')+'</tbody>';
 
-  // Sensibilidad
-  const ds=[0,0.03,0.05,0.08,0.10,0.15,0.20,0.25];
-  let ts=`<thead><tr><th>Descuento</th><th class="num">Total con IVA</th><th class="num">Utilidad a. renta</th><th class="num">Margen</th><th>Estado</th></tr></thead><tbody>`;
+  const ds=[0,0.03,0.05,0.08,0.10,0.15,0.20];
+  let ts=`<thead><tr><th>Desc.</th><th class="num">Total con IVA</th><th class="num">Utilidad</th><th class="num">Margen</th></tr></thead><tbody>`;
   ds.forEach(d=>{const aa=ajustar(t,Q,d), uu=calcUtil(aa,nom,t.mod);
-    const st=uu.uai<0?'<span class="badge bad">Pérdida</span>':d>0?'<span class="badge warn">Bajo mínimo</span>':'<span class="badge ok">Tarifa legal</span>';
-    ts+=`<tr class="${uu.uai<0?'neg':''}"><td>${pc(d,0)}</td><td class="num">${money(aa.total)}</td><td class="num">${money(uu.uai)}</td><td class="num">${pc(uu.mUAI)}</td><td>${st}</td></tr>`;});
+    ts+=`<tr class="${uu.uai<0?'neg':''}${Math.abs(d-(a.desc||0))<0.0005?' hl':''}"><td>${pc(d,0)}</td><td class="num">${money(aa.total)}</td><td class="num">${money(uu.uai)}</td><td class="num">${uu.uai<0?'<span class="badge bad">'+pc(uu.mUAI)+'</span>':pc(uu.mUAI)}</td></tr>`;});
   const dmax=1-u.Rbe/t.sub;
-  ts+=`<tr class="tot"><td>Equilibrio</td><td class="num">${money(u.Rbe*(1+P.baseIVA*P.iva/10000))}</td><td class="num">$ 0</td><td class="num">0,0 %</td><td>${dmax>0?'Desc. máx. '+pc(dmax):'—'}</td></tr></tbody>`;
+  ts+=`<tr class="tot"><td>Equilibrio</td><td class="num">${money(u.Rbe*KIVA())}</td><td class="num">$ 0</td><td class="num">${dmax>0?pc(dmax)+' desc.':'—'}</td></tr></tbody>`;
   $('#tblSens').innerHTML=ts;
-
-  // Escenarios de guardas
-  const base=Math.max(1,Math.floor(nom.fte));
-  const c=Math.ceil(nom.fte-1e-9), opts=[...new Set([Math.abs(nom.fte-Math.round(nom.fte))<1e-6?null:'x',c-1,c,c+1].filter(x=>x==='x'||(x!==null&&x>=1)))].map(x=>x==='x'?null:x);
-  let tg=`<thead><tr><th>Guardas</th><th class="num">Costo personal</th><th class="num">H. extra/sem/guarda</th><th class="num">Utilidad a. renta</th><th>Cumplimiento</th></tr></thead><tbody>`;
-  opts.forEach(g=>{const nn=calcNomina(Q,R.per,t.h,g===null?'fte':g); const uu=calcUtil(a,nn,t.mod);
-    const legal=nn.extraSemana<=P.nomina.maxExtraSemana+1e-9;
-    tg+=`<tr class="${uu.uai<0?'neg':''}"><td>${g===null?nf(nn.fte,2)+' <span class="muted small">(tiempo completo exacto)</span>':g}</td><td class="num">${money(nn.total)}</td><td class="num">${nf(nn.extraSemana,1)}</td><td class="num">${money(uu.uai)}</td><td>${legal?'<span class="badge ok">Legal</span>':'<span class="badge bad">Excede '+P.nomina.maxExtraSemana+' h</span>'}</td></tr>`;});
-  $('#tblGuardas').innerHTML=tg+'</tbody>';
 }
 
 function renderNomina(){
-  const {nom,per,t}=R;
-  $('#nomKpis').innerHTML=[
-    ['Valor hora ordinaria',money(nom.vh),`${money(nom.sal)} ÷ ${nom.horasMes} h`],
-    ['Guardas en el puesto',nf(nom.N,2),nom.manual?'definido manualmente':'equivalentes de tiempo completo'],
-    ['Costo empleador por guarda',money(nom.total/nom.N),`factor prestacional ${nf(nom.total/nom.N/nom.sal,2)}× el salario`],
-    ['Neto que recibe el guarda',money(nom.neto/nom.N),'promedio mensual']
-  ].map(([l,v,s])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
-  $('#nomSub').textContent=`Período ${per.nombre} ${P.anio} · jornada ${per.jornada} h · recargo dominical ${per.recDom} % · ARL clase ${P.nomina.arlClase} (${nf(P.arl[P.nomina.arlClase],3)} %)`;
+  const {nom,per,t,a,u}=R;
   const N_=P.nomina;
+  // guía de salario
+  const sal=nom.sal;
+  $('#hintSal').textContent=`Mínimo legal ${money(P.smmlv)} · valor hora ${money(nom.vh)}`;
+  $('#aj-salario').classList.toggle('err',sal<P.smmlv);
+
+  const nal=[];
+  if(sal<P.smmlv) nal.push(AL('bad','!',`<b>Salario por debajo del mínimo legal</b> (${money(P.smmlv)}). Un guarda de jornada completa no puede ganar menos (CST art. 145). El cálculo se muestra solo como referencia.`));
+  if(nom.bonif>0&&nom.bonifG>0.4*(sal+nom.bonifG)) nal.push(AL('warn','!',`La bonificación no salarial supera el 40 % del pago total: el exceso debe cotizar seguridad social (Ley 1393 de 2010).`));
+  if(nom.manual&&nom.extraSemana>N_.maxExtraSemana) nal.push(AL('bad','!',`Con ${nom.N} guardas cada uno hace <b>${nf(nom.extraSemana,1)} h extra por semana</b>; el máximo legal es ${N_.maxExtraSemana}. Agregue un guarda.`));
+  if(!nom.manual&&Math.abs(nom.fte-Math.round(nom.fte))>0.01) nal.push(AL('info','i',`Automático usa <b>${nf(nom.fte,2)}</b> guardas: la fracción es el tiempo de un guarda que comparte turnos con otro puesto. Use "Número fijo" si el puesto tiene personal exclusivo.`));
+  $('#alertsNom').innerHTML=nal.join('');
+
+  // resultado con este personal vs. valores por defecto
+  const saved=Q.aj; Q.aj={salario:null,bonif:null,dotacion:null,relevos:null};
+  const nom0=calcNomina(Q,per,t.h), u0=calcUtil(a,nom0,t.mod); Q.aj=saved;
+  const dlt=(v,v0,inv)=>{const d=v-v0;if(Math.abs(d)<1)return '';const good=inv?d<0:d>0;return `<span class="delta ${good?'up':'down'}">${d>0?'+':'−'}${money(Math.abs(d)).replace('$ ','$')}</span>`;};
+  const dmax=1-u.Rbe/t.sub;
+  $('#simOut').innerHTML=[
+    ['Costo total del personal',money(nom.total),dlt(nom.total,nom0.total,true)||'por puesto al mes',''],
+    ['Costo por guarda',money(nom.total/nom.N),`${nf(nom.N,2)} guardas`,''],
+    ['Neto que recibe el guarda',money(nom.neto/nom.N),'promedio al mes',''],
+    ['Utilidad antes de renta',money(u.uai),(dlt(u.uai,u0.uai)||'')+' margen '+pc(u.mUAI),u.uai>=0?'good':'bad'],
+    ['Descuento máximo sin pérdida',dmax>0?pc(dmax):'0 %','sobre la tarifa plena',dmax>0?'':'bad'],
+    ['Precio de equilibrio',money(u.Rbe*KIVA()),'con IVA, por puesto','']
+  ].map(([l,v,d,c])=>`<div class="o ${c}"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('');
+
+  // ¿cuánto descuento puedo dar?
+  const m=n0(Q.margenObj)/100, dSim=clamp(n0(Q.descSim),0,100)/100;
+  const dMaxM=descMaxPara(t,nom,u,m);
+  const aSim=ajustar(t,Q,dSim), uSim=calcUtil(aSim,nom,t.mod);
+  const sMax=salMaxPara(t,aSim,m,t.mod);
+  $('#descOut').innerHTML=[
+    [`Descuento máximo con ${pc(m)} de utilidad`,dMaxM>0?pc(dMaxM):'0 %',dMaxM>0?`precio ${money(t.total*(1-dMaxM))}`:'no alcanza ni sin descuento',dMaxM>0?'good':'bad'],
+    [`Con ${pc(dSim)} de descuento`,money(aSim.total),`utilidad ${money(uSim.uai)} (${pc(uSim.mUAI)})`,uSim.uai>=0?'':'bad'],
+    ['Salario máximo para ese descuento',sMax>0?money(sMax):'—',`manteniendo ${pc(m)} de utilidad`,sMax>=P.smmlv?'good':'bad'],
+    ['Salario actual',money(sal),sal>=P.smmlv?'cumple el mínimo legal':'por debajo del mínimo',sal>=P.smmlv?'':'bad']
+  ].map(([l,v,d,c])=>`<div class="o ${c}"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('');
+  const da=[];
+  if(sMax<P.smmlv) da.push(AL('bad','!',`Con ${pc(dSim)} de descuento y ${pc(m)} de utilidad, el salario tendría que bajar a ${money(sMax)}, <b>por debajo del mínimo legal</b>. Para lograrlo, reduzca la utilidad deseada, la dotación, los relevos o los gastos de administración, o negocie menos descuento.`));
+  else da.push(AL('ok','✓',`El descuento de ${pc(dSim)} es viable: puede pagar hasta ${money(sMax)} por guarda y conservar ${pc(m)} de utilidad.`));
+  if(dSim>0) da.push(AL('warn','!',`Recuerde: todo descuento deja el precio por debajo de la tarifa mínima de la Supervigilancia.`));
+  $('#descAlerts').innerHTML=da.join('');
+
+  // escenarios de guardas
+  const c=Math.ceil(nom.fte-1e-9);
+  const opts=[...new Set([c-1,c,c+1].filter(x=>x>=1))];
+  let tg=`<thead><tr><th>Guardas</th><th class="num hide-sm">Costo personal</th><th class="num">H. extra/sem</th><th class="num">Utilidad</th><th></th></tr></thead><tbody>`;
+  if(Math.abs(nom.fte-c)>1e-6){const nn=calcNomina(Q,per,t.h,{guardas:'fte'}),uu=calcUtil(a,nn,t.mod);tg+=`<tr><td>${nf(nn.fte,2)} <span class="muted small">compartido</span></td><td class="num hide-sm">${money(nn.total)}</td><td class="num">0</td><td class="num">${money(uu.uai)}</td><td><span class="badge ok">Legal</span></td></tr>`;}
+  opts.forEach(g=>{const nn=calcNomina(Q,per,t.h,{guardas:g}),uu=calcUtil(a,nn,t.mod),legal=nn.extraSemana<=N_.maxExtraSemana+1e-9;
+    tg+=`<tr class="${uu.uai<0?'neg':''}"><td>${g}</td><td class="num hide-sm">${money(nn.total)}</td><td class="num">${nf(nn.extraSemana,1)}</td><td class="num">${money(uu.uai)}</td><td>${legal?'<span class="badge ok">Legal</span>':'<span class="badge bad">Excede</span>'}</td></tr>`;});
+  $('#tblGuardas').innerHTML=tg+'</tbody>';
+
+  $('#nomSub').textContent=`${per.nombre} ${P.anio} · jornada ${per.jornada} h · dominical ${per.recDom} % · ARL clase ${N_.arlClase}`;
   const rows=[
     ['sec','Devengado'],['Salarios básicos',`${nf(nom.N,2)} × ${money(nom.sal)}`,nom.salarios],['Recargo nocturno',`${N_.recNoc} %`,nom.recNoc],['Recargo dominical y festivo',`${per.recDom} %`,nom.recDom],['Horas extra',`${nf(nom.E,1)} h`,nom.extras],['Auxilio de transporte','',nom.aux],['Bonificación no salarial','',nom.bonif],['Total devengado','',nom.devengado,'tot'],
-    ['sec','Prestaciones sociales'],['Cesantías',`${N_.ces} %`,nom.ces],['Intereses sobre cesantías',`${N_.intCes} % anual`,nom.intc],['Prima de servicios',`${N_.prima} %`,nom.prima],['Vacaciones',`${N_.vac} %`,nom.vac],['Subtotal prestaciones','',nom.prest,'tot'],
-    ['sec','Seguridad social y parafiscales'],['Pensión',`${N_.pension} %`,nom.pen],['Salud',N_.exoSalud?'Exonerado':`${N_.salud} %`,nom.salud],['ARL',`Clase ${N_.arlClase} · ${nf(P.arl[N_.arlClase],3)} %`,nom.arl],['Caja de compensación',`${N_.ccf} %`,nom.ccf],['ICBF',N_.exoPara?'Exonerado':`${N_.icbf} %`,nom.icbf],['SENA',N_.exoPara?'Exonerado':`${N_.sena} %`,nom.sena],['Subtotal seguridad social','',nom.ss,'tot'],
-    ['sec','Otros costos del personal'],['Dotación y uniformes','',nom.dot],['Capacitación, exámenes, credencial','',nom.capac],['Póliza colectiva de vida','',nom.pol],['Relevos y ausentismo',`${N_.relevos} %`,nom.relevos],
-    ['Costo total del personal del puesto','',nom.total,'tot']
+    ['sec','Prestaciones sociales'],['Cesantías',`${N_.ces} %`,nom.ces],['Intereses cesantías',`${N_.intCes} % anual`,nom.intc],['Prima de servicios',`${N_.prima} %`,nom.prima],['Vacaciones',`${N_.vac} %`,nom.vac],['Subtotal prestaciones','',nom.prest,'tot'],
+    ['sec','Seguridad social'],['Pensión',`${N_.pension} %`,nom.pen],['Salud',N_.exoSalud?'Exonerado':`${N_.salud} %`,nom.salud],['ARL',`Clase ${N_.arlClase} · ${nf(P.arl[N_.arlClase],3)} %`,nom.arl],['Caja de compensación',`${N_.ccf} %`,nom.ccf],['ICBF',N_.exoPara?'Exonerado':`${N_.icbf} %`,nom.icbf],['SENA',N_.exoPara?'Exonerado':`${N_.sena} %`,nom.sena],['Subtotal seguridad social','',nom.ss,'tot'],
+    ['sec','Otros'],['Dotación','',nom.dot],['Capacitación y exámenes','',nom.capac],['Póliza de vida','',nom.pol],['Relevos y ausentismo',`${nf(nom.relP)} %`,nom.relevos],
+    ['Costo total del personal','',nom.total,'tot']
   ];
-  $('#tblNomina').innerHTML=`<thead><tr><th>Concepto</th><th>Base / tasa</th><th class="num">Valor mes</th><th class="num">Por guarda</th></tr></thead><tbody>`+
-    rows.map(r=>r[0]==='sec'?`<tr class="sec"><td colspan="4">${r[1]}</td></tr>`:`<tr class="${r[3]==='tot'?'tot':''}"><td>${r[0]}</td><td class="muted">${r[1]}</td><td class="num">${money(r[2])}</td><td class="num">${money(r[2]/nom.N)}</td></tr>`).join('')+'</tbody>';
+  $('#tblNomina').innerHTML=`<thead><tr><th>Concepto</th><th class="hide-sm">Base / tasa</th><th class="num">Mes</th><th class="num">Por guarda</th></tr></thead><tbody>`+
+    rows.map(r=>r[0]==='sec'?`<tr class="sec"><td colspan="4">${r[1]}</td></tr>`:`<tr class="${r[3]==='tot'?'tot':''}"><td>${r[0]}</td><td class="muted hide-sm">${r[1]}</td><td class="num">${money(r[2])}</td><td class="num">${money(r[2]/nom.N)}</td></tr>`).join('')+'</tbody>';
   $('#tblHoras').innerHTML=`<thead><tr><th>Tipo de hora</th><th class="num">Horas/mes</th><th class="num">Recargo</th></tr></thead><tbody>
-    <tr><td>Diurnas ordinarias (L–S)</td><td class="num">${nf(nom.hDo,0)}</td><td class="num">—</td></tr>
-    <tr><td>Nocturnas (L–S)</td><td class="num">${nf(nom.hNo,0)}</td><td class="num">${N_.recNoc} %</td></tr>
-    <tr><td>Diurnas dominicales/festivas</td><td class="num">${nf(nom.hDd,0)}</td><td class="num">${per.recDom} %</td></tr>
-    <tr><td>Nocturnas dominicales/festivas</td><td class="num">${nf(nom.hNd,0)}</td><td class="num">${N_.recNoc+per.recDom} %</td></tr>
+    <tr><td>Diurnas lunes a sábado</td><td class="num">${nf(nom.hDo,0)}</td><td class="num">—</td></tr>
+    <tr><td>Nocturnas lunes a sábado</td><td class="num">${nf(nom.hNo,0)}</td><td class="num">${N_.recNoc} %</td></tr>
+    <tr><td>Diurnas domingo/festivo</td><td class="num">${nf(nom.hDd,0)}</td><td class="num">${per.recDom} %</td></tr>
+    <tr><td>Nocturnas domingo/festivo</td><td class="num">${nf(nom.hNd,0)}</td><td class="num">${N_.recNoc+per.recDom} %</td></tr>
     <tr class="tot"><td>Total horas del puesto</td><td class="num">${nf(nom.T,0)}</td><td></td></tr>
-    <tr><td>Capacidad ordinaria por guarda</td><td class="num">${nf(nom.cap,1)}</td><td class="num muted">${per.jornada} h × 30/7</td></tr>
-    <tr><td>Horas extra resultantes</td><td class="num">${nf(nom.E,1)}</td><td class="num">${nf(nom.extraSemana,1)} h/sem/guarda</td></tr></tbody>`;
+    <tr><td>Horas ordinarias por guarda</td><td class="num">${nf(nom.cap,1)}</td><td class="num muted">${per.jornada} h × 30/7</td></tr>
+    <tr><td>Horas extra resultantes</td><td class="num">${nf(nom.E,1)}</td><td class="num">${nf(nom.extraSemana,1)} h/sem</td></tr></tbody>`;
   const g=x=>x/nom.N;
-  $('#tblGuarda').innerHTML=`<thead><tr><th>Concepto</th><th class="num">Valor</th></tr></thead><tbody>
+  $('#tblGuarda').innerHTML=`<thead><tr><th>Concepto</th><th class="num">Valor mes</th></tr></thead><tbody>
     <tr><td>Salario básico</td><td class="num">${money(g(nom.salarios))}</td></tr>
     <tr><td>Recargos y horas extra</td><td class="num">${money(g(nom.recNoc+nom.recDom+nom.extras))}</td></tr>
     <tr><td>Auxilio de transporte y bonificación</td><td class="num">${money(g(nom.aux+nom.bonif))}</td></tr>
     <tr class="tot"><td>Total devengado</td><td class="num">${money(g(nom.devengado))}</td></tr>
-    <tr><td>(−) Salud trabajador ${N_.descSalud} %</td><td class="num">${money(-g(nom.descS))}</td></tr>
-    <tr><td>(−) Pensión trabajador ${N_.descPension} %</td><td class="num">${money(-g(nom.descP))}</td></tr>
-    <tr class="tot"><td>Neto a pagar al guarda</td><td class="num">${money(g(nom.neto))}</td></tr>
-    <tr class="hl"><td><b>Costo total para la empresa</b></td><td class="num"><b>${money(g(nom.total))}</b></td></tr></tbody>`;
+    <tr><td>(−) Salud ${N_.descSalud} %</td><td class="num">${money(-g(nom.descS))}</td></tr>
+    <tr><td>(−) Pensión ${N_.descPension} %</td><td class="num">${money(-g(nom.descP))}</td></tr>
+    <tr class="tot"><td>Neto que recibe el guarda</td><td class="num">${money(g(nom.neto))}</td></tr>
+    <tr class="hl"><td><b>Lo que le cuesta a la empresa</b></td><td class="num"><b>${money(g(nom.total))}</b></td></tr></tbody>`;
 }
-function renderParamsCalc(){P.periodos.forEach((p,i)=>{const el=$('#cd24_'+i);if(el)el.textContent=money(P.smmlv*p.factor+P.poliza*P.guardasPoliza);});}
 
 /* ---------- Impresión ---------- */
 function buildPrint(){
@@ -1010,30 +1135,42 @@ function buildPrint(){
 
 /* ---------- Eventos ---------- */
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200);}
+function goTab(name){
+  $$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+  $$('section.view').forEach(s=>s.classList.toggle('active',s.id==='v-'+name));
+  $('#mbar').classList.toggle('hide',name==='parametros'||name==='ayuda');
+  window.scrollTo({top:0});
+}
+const TXT=['cliente','nit','contacto','direccion','ciudad','numero','fecha','periodo'];
 document.addEventListener('input',e=>{
   const el=e.target;
-  if(el.dataset.q){const k=el.dataset.q;Q[k]=['cliente','nit','contacto','direccion','ciudad','numero','fecha','periodo'].includes(k)?el.value:n0(el.value);render();}
+  if(el.dataset.q){const k=el.dataset.q;Q[k]=TXT.includes(k)?el.value:n0(el.value);render();}
   else if(el.dataset.h){const [i,j]=el.dataset.h.split('.');Q.horario[i][j]=n0(el.value);render();}
+  else if(el.dataset.aj){Q.aj[el.dataset.aj]=el.value===''?null:n0(el.value);render();}
   else if(el.dataset.p){const p=el.dataset.p,cur=getPath(P,p);
     const v=el.type==='checkbox'?el.checked:(typeof cur==='number'?n0(el.value):el.value);
     setPath(P,p,v);
-    if(/^(modalidades|periodos|diasMes|hDiaMax|hNocheMax)/.test(p)){const keep=document.activeElement;buildStatic();if(keep&&keep.dataset.p){const n=document.querySelector(`[data-p="${keep.dataset.p}"]`);if(n){n.focus();}}}
+    if(/^(modalidades|periodos|diasMes|hDiaMax|hNocheMax)/.test(p)){buildStatic();const n=document.querySelector(`[data-p="${p}"]`);if(n)n.focus();}
     render();}
 });
-document.addEventListener('change',e=>{if(e.target.dataset.q==='periodo'){Q.periodo=e.target.value;render();}});
+document.addEventListener('change',e=>{if(e.target.dataset.q==='periodo'){Q.periodo=e.target.value;render();}else if(e.target.dataset.aj||e.target.dataset.q){fillInputs();}});
 document.addEventListener('click',e=>{
   const tab=e.target.closest('.tab');
-  if(tab){$$('.tab').forEach(b=>b.classList.toggle('active',b===tab));tab.scrollIntoView({inline:'center',block:'nearest'});$$('section.view').forEach(s=>s.classList.toggle('active',s.id==='v-'+tab.dataset.tab));window.scrollTo({top:0,behavior:'smooth'});return;}
+  if(tab){goTab(tab.dataset.tab);return;}
   const sb=e.target.closest('.seg button');
   if(sb){const id=sb.parentElement.id,v=sb.dataset.v;
-    if(id==='segModalidad')Q.modalidad=v;else if(id==='segTipo')Q.tipo=v;else if(id==='segAjuste')Q.ajuste=v;else if(id==='segGuardas'){Q.guardasModo=v;if(v==='manual'&&!(Q.guardas>0))Q.guardas=Math.ceil(R.nom.fte);}
+    if(id==='segModalidad')Q.modalidad=v;else if(id==='segTipo')Q.tipo=v;else if(id==='segAjuste')Q.ajuste=v;
+    else if(id==='segGuardas'){Q.guardasModo=v;if(v==='manual')Q.guardas=Math.max(1,Math.ceil(R.nom.fte-1e-9));}
     fillInputs();render();return;}
   const pr=e.target.closest('[data-preset]');
   if(pr){const H=P.hDiaMax,N=P.hNocheMax,m={'24':i=>[H,N],'dia':i=>[H,0],'noche':i=>[0,N],'oficina':i=>i<5?[10,0]:i===5?[5,0]:[0,0],'finde':i=>i>=5?[H,N]:[0,0]}[pr.dataset.preset];
     Q.horario=DIAS.map((d,i)=>m(i));fillInputs();render();}
 });
+$('#mbarBtn').addEventListener('click',()=>{goTab('cotizar');setTimeout(()=>$('#resCard').scrollIntoView({behavior:'smooth',block:'start'}),50);});
 $('#btnImprimir').addEventListener('click',()=>{buildPrint();window.print();});
 $('#btnNueva').addEventListener('click',()=>{const keep={modalidad:Q.modalidad,tipo:Q.tipo};Q=Object.assign(QDEF(),keep);fillInputs();render();toast('Nueva cotización lista');});
+$('#btnAjReset').addEventListener('click',()=>{Q.aj={salario:null,bonif:null,dotacion:null,relevos:null};Q.guardasModo='auto';fillInputs();render();toast('Personal restablecido');});
+$('#btnAplicarDesc').addEventListener('click',()=>{Q.ajuste='descuento';Q.descuento=clamp(n0(Q.descSim),0,100);fillInputs();render();toast('Descuento aplicado a la cotización');});
 $('#btnCopiar').addEventListener('click',()=>{
   const {a,t,per}=R;
   const txt=`${P.empresa.nombre} – Cotización ${Q.numero}\nCliente: ${Q.cliente||'—'}\n${descripcion(Q,R)}\nTarifa ${per.nombre} ${P.anio} (factor ${nf(per.factor)} SMMLV)\nCosto directo: ${money(a.cd)}\nAdministración y supervisión ${nf(t.mod.aiu)}%: ${money(a.aiu)}\nValor antes de IVA: ${money(a.sub)}\nIVA: ${money(a.iva)}\nTOTAL por puesto: ${money(a.total)}${R.puestos>1?`\nTotal ${R.puestos} puestos: ${money(a.total*R.puestos)}`:''}`;
@@ -1041,9 +1178,11 @@ $('#btnCopiar').addEventListener('click',()=>{
 });
 $('#btnExport').addEventListener('click',()=>{const b=new Blob([JSON.stringify(P,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const l=document.createElement('a');l.href=u;l.download=`parametros_tarifador_${P.anio}.json`;l.click();setTimeout(()=>URL.revokeObjectURL(u),1000);});
 $('#fileImport').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{P=merge(clone(DEFAULTS),JSON.parse(r.result));buildStatic();render();toast('Parámetros importados');}catch(err){toast('Archivo no válido');}};r.readAsText(f);e.target.value='';});
-$('#btnReset').addEventListener('click',()=>{if(confirm('¿Restablecer todos los parámetros a los valores 2026 por defecto?')){P=clone(DEFAULTS);buildStatic();render();toast('Parámetros restablecidos');}});
+$('#btnReset').addEventListener('click',()=>{if(confirm('¿Restablecer todos los parámetros a los valores 2026?')){P=clone(DEFAULTS);buildStatic();render();toast('Parámetros restablecidos');}});
 window.addEventListener('beforeprint',()=>{if(R)buildPrint();});
 
+// En escritorio, datos del cliente y comparativo abiertos; en celular, cerrados
+if(window.matchMedia('(min-width:721px)').matches){$('#cardCliente').open=true;}
 buildStatic();render();
 })();
 </script>
