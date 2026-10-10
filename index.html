@@ -136,6 +136,11 @@ table.t input{padding:7px 8px;font-size:13px;min-width:84px;min-height:36px}
 .rline{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.14);font-size:14px}
 .rline span:first-child{color:#c4d3e8}
 .rline span:last-child{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.res-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.res-chips span{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#e6eef9}
+.res-chips span:first-child{background:var(--gold);border-color:var(--gold);color:#1b1404}
+.rline.sep{border-bottom:0;padding:12px 0 2px;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+.rline.sep span:first-child{color:#8fa6c4}
 .rline.total{border-bottom:0;border-top:1px solid rgba(255,255,255,.3);margin-top:4px;padding-top:10px;font-size:16px}
 .rline.total span{color:#fff!important;font-weight:800}
 .rbox{margin-top:14px;padding:12px;border-radius:12px;background:rgba(255,255,255,.07);font-size:13px;color:#dbe5f3}
@@ -203,8 +208,53 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
 .toast.show{transform:translateX(-50%) translateY(0)}
 .mt{margin-top:16px}.mt8{margin-top:8px}
 
+/* Catálogo de servicios */
+.fields.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.catgroup + .catgroup{margin-top:16px}
+.catgroup h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:0 0 8px;font-weight:700;display:flex;align-items:center;gap:8px}
+.catgroup h3::after{content:"";flex:1;height:1px;background:var(--line)}
+.svcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:8px}
+.svc{appearance:none;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-height:62px;position:relative;font:inherit;color:var(--ink);transition:border-color .15s,background .15s,box-shadow .15s}
+.svc b{font-size:13.5px;font-weight:700;padding-right:22px;line-height:1.3}
+.svc span{font-size:12px;color:var(--muted);line-height:1.35}
+.svc:hover{border-color:#a9b8cc}
+.svc:focus-visible{outline:none;box-shadow:0 0 0 3px var(--accent-soft);border-color:var(--accent)}
+.svc.on{border-color:var(--navy);background:var(--accent-soft);box-shadow:0 0 0 3px rgba(30,90,168,.12)}
+.svc.on::after{content:"✓";position:absolute;top:9px;right:10px;width:18px;height:18px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center}
+.svc-sum{margin-top:14px;padding:12px 14px;border-radius:12px;background:#f7f9fc;border:1px solid var(--line);display:flex;gap:8px 14px;align-items:center;flex-wrap:wrap;font-size:13.5px}
+.svc-sum:empty{display:none}
+.svc-sum .tt{font-weight:700;color:var(--navy);width:100%}
+.svc-sum .pill{display:inline-flex;gap:6px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600}
+.svc-sum .btn{margin-left:auto}
+.custom-foot{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px}
+.custom-foot .hint{margin:0}
+
+/* Estado vacío */
+.emptymsg{display:none}
+body.empty .emptymsg{display:block}
+body.empty .needq{display:none!important}
+.res-empty{margin-top:12px;padding:14px;border-radius:12px;background:rgba(255,255,255,.08);color:#dbe5f3;font-size:14px}
+.empty-card{background:var(--card);border:1px dashed #c3cede;border-radius:var(--radius);padding:28px 20px;text-align:center;color:var(--muted);font-size:15px}
+.empty-card b{display:block;color:var(--navy);font-size:17px;margin-bottom:4px}
+
+/* Pie de página */
+.foot{display:flex;flex-direction:column;gap:6px}
+.credit{font-size:13.5px;color:var(--ink)}
+.credit b{color:var(--navy)}
+
 /* ===== Celular ===== */
 @media (max-width:720px){
+  .fields.three{grid-template-columns:1fr 1fr}
+  .fields.three .field:last-child{grid-column:1/-1}
+  .svcs{grid-template-columns:1fr 1fr;gap:6px}
+  .svc{padding:9px 10px;min-height:58px}
+  .svc b{font-size:13px}
+  .svc span{font-size:11.5px}
+  .svc-sum .btn{margin-left:0;width:100%}
+  #segModalidad{display:grid;grid-template-columns:1fr 1fr}
+  #segTipo{flex-wrap:nowrap}
+  #segTipo button{flex:1 1 0;padding:10px 4px}
+  #segTipo button small{display:none}
   body{font-size:15px;padding-bottom:calc(var(--nav-h) + var(--bar-h) + env(safe-area-inset-bottom))}
   input[type=text],input[type=number],input[type=date],select{font-size:16px}
   .top .wrap{padding-top:12px;padding-bottom:12px;gap:10px}
@@ -273,6 +323,7 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
   table.pq th{background:#0f2742;color:#fff;text-align:left}
   table.pq td.num{text-align:right}
   table.pq tr.tot td{font-weight:800;background:#fbf5e2}
+  table.pq tr.sub td{font-weight:700;background:#eef2f8;color:#0f2742;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
   .pq-notes{font-size:10.5px;color:#333;margin-top:12px}
   .pq-notes li{margin-bottom:3px}
   .pq-sign{margin-top:40px;display:flex;gap:40px}
@@ -344,27 +395,30 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
               <div class="seg" id="segModalidad"></div>
             </div>
             <div class="field full">
-              <span class="lbl">Cobertura</span>
+              <span class="lbl">Tipo de servicio</span>
               <div class="seg" id="segTipo">
-                <button data-v="24h">24 horas<small>todo el mes</small></button>
-                <button data-v="custom">Por horario<small>días y horas</small></button>
+                <button data-v="catalog">Frecuentes<small>contrato mensual</small></button>
+                <button data-v="custom">Personalizado<small>mensual, horas por día</small></button>
                 <button data-v="dias">Eventual<small>por días</small></button>
               </div>
             </div>
           </div>
 
+          <div id="boxCatalog" class="mt">
+            <div id="catalog"></div>
+            <p class="hint mt8">Todos los precios de esta lista son <b>mensuales</b>. "Lunes a viernes" equivale a 20 días al mes y "lunes a sábado" a 24; no incluyen domingos ni festivos.</p>
+          </div>
+
           <div id="boxCustom" class="mt">
-            <div class="presets">
-              <button class="btn sm" data-preset="24">24 h todos los días</button>
-              <button class="btn sm" data-preset="dia">Diurno 13 h L–D</button>
-              <button class="btn sm" data-preset="noche">Nocturno 11 h L–D</button>
-              <button class="btn sm" data-preset="oficina">Oficina L–V + sáb.</button>
-              <button class="btn sm" data-preset="finde">Fines de semana 24 h</button>
-            </div>
             <div class="days-head"><span>Día</span><span>☀ Diurnas · ☾ Nocturnas</span></div>
             <div class="days" id="days"></div>
-            <p class="hint mt8">☀ Diurnas 06:00–19:00 (máx. 13 h) · ☾ Nocturnas 19:00–06:00 (máx. 11 h).</p>
+            <div class="custom-foot">
+              <p class="hint">☀ Diurnas 6:00 a. m.–7:00 p. m. (máx. 13 h) · ☾ Nocturnas 7:00 p. m.–6:00 a. m. (máx. 11 h).</p>
+              <button class="btn sm" id="btnCeros">Poner todo en cero</button>
+            </div>
           </div>
+
+          <div class="svc-sum" id="svcSum"></div>
 
           <div id="boxDias" class="mt">
             <div class="fields">
@@ -375,9 +429,10 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
             </div>
           </div>
 
-          <div class="fields mt">
+          <div class="fields three mt">
             <div class="field"><label for="q-puestos">Puestos iguales</label><input type="number" inputmode="numeric" min="1" step="1" id="q-puestos" data-q="puestos"></div>
             <div class="field" id="fMeses"><label for="q-meses">Meses de contrato</label><input type="number" inputmode="numeric" min="1" step="1" id="q-meses" data-q="meses"></div>
+            <div class="field"><label for="q-poliza">Póliza de vida por guarda (mes)</label><input type="number" inputmode="numeric" min="0" step="100" id="q-poliza" data-p="poliza"></div>
           </div>
         </div>
       </div>
@@ -424,19 +479,23 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
         <div class="bd">
           <div class="big" id="resTotal">—</div>
           <div class="small" style="color:#b8c8de;margin-top:4px" id="resSub">IVA incluido</div>
-          <div class="rlines" id="resLines"></div>
-          <div class="kpis" id="resKpis"></div>
-          <div class="rbox" id="resDesc"></div>
+          <div class="needq res-chips" id="resChips"></div>
+          <div class="emptymsg res-empty">Elija un servicio frecuente o arme un horario para ver el precio.</div>
+          <div class="needq">
+            <div class="rlines" id="resLines"></div>
+            <div class="kpis" id="resKpis"></div>
+            <div class="rbox" id="resDesc"></div>
+          </div>
         </div>
       </div>
-      <div class="card">
+      <div class="card needq">
         <div class="hd"><h2>Lo que debe saber de este precio</h2><span class="opt">uso interno</span></div>
         <div class="bd"><div class="alerts" id="quickInsights"></div></div>
       </div>
     </div>
   </div>
 
-  <details class="card mt" id="cardPeriodos">
+  <details class="card mt needq" id="cardPeriodos">
     <summary class="hd"><h2>El mismo servicio en las 3 tarifas de 2026</h2></summary>
     <div class="bd table-wrap"><table class="t" id="tblPeriodos"></table></div>
   </details>
@@ -451,6 +510,8 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
     </div>
   </div>
 
+  <div class="emptymsg empty-card"><b>Todavía no hay un servicio cotizado.</b> Vaya a <a href="#" data-go="cotizar">Cotizar</a> y elija un servicio para ver la utilidad.</div>
+  <div class="needq">
   <div class="grid g4" id="utilKpis"></div>
 
   <div class="grid g2 mt">
@@ -473,6 +534,7 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
     <summary class="hd"><h2>Estado de resultados detallado</h2></summary>
     <div class="bd table-wrap"><table class="t" id="tblPyG"></table></div>
   </details>
+  </div>
 </section>
 
 <!-- ================= 3. NÓMINA ================= -->
@@ -484,6 +546,8 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
     </div>
   </div>
 
+  <div class="emptymsg empty-card"><b>Todavía no hay un servicio cotizado.</b> Vaya a <a href="#" data-go="cotizar">Cotizar</a> y elija un servicio para ver la nómina del puesto.</div>
+  <div class="needq">
   <div class="grid g2">
     <div class="card">
       <div class="hd"><span class="step">1</span><h2>Ajuste el personal</h2><button class="btn sm" id="btnAjReset" style="margin-left:auto">Restablecer</button></div>
@@ -547,6 +611,7 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
       <summary class="hd"><h2>Horas del puesto en el mes</h2></summary>
       <div class="bd table-wrap"><table class="t" id="tblHoras"></table></div>
     </details>
+  </div>
   </div>
 </section>
 
@@ -670,7 +735,7 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
     </div>
   </div>
   <div class="howto">
-    <div class="s"><h4>Arme el servicio</h4><p>En Cotizar elija modalidad y cobertura: 24 h, por horario (use las plantillas) o eventual.</p></div>
+    <div class="s"><h4>Arme el servicio</h4><p>En Cotizar elija la modalidad y toque un servicio frecuente. Si no está, use Personalizado (horas por día) o Eventual.</p></div>
     <div class="s"><h4>Defina el precio</h4><p>Tarifa plena es el mínimo legal. Con Descuento % o Precio acordado, un aviso rojo le dice si queda por debajo del mínimo o en pérdida.</p></div>
     <div class="s"><h4>Revise la utilidad</h4><p>En Utilidad vea cuánto queda después de nómina, gastos e impuestos, y la tabla de descuentos posibles.</p></div>
     <div class="s"><h4>Ajuste el personal</h4><p>En Nómina cambie guardas, salario y dotación. Fije la utilidad mínima y el sistema le dice el descuento máximo.</p></div>
@@ -700,15 +765,42 @@ footer{color:var(--muted);font-size:12.5px;padding:20px 0 40px;border-top:1px so
 </div>
 </main>
 
-<footer><div class="wrap" id="footTxt"></div></footer>
+<footer><div class="wrap foot">
+  <div class="credit">Creado por <b>Sandra Bolaños</b></div>
+  <div id="footTxt"></div>
+</div></footer>
 <div class="toast" id="toast"></div>
 <div id="print"></div>
 
 <script>
 (function(){
 'use strict';
-const STORE_P='tarifadorMasivos.params.v1', STORE_Q='tarifadorMasivos.quote.v2';
+const STORE_P='tarifadorMasivos.params.v1', STORE_Q='tarifadorMasivos.quote.v3';
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo','Festivo'];
+
+/* Servicios frecuentes. Horas por día [diurnas, nocturnas] para Lun..Sáb, Dom, Festivo.
+   Diurna = 6:00 a. m.–7:00 p. m.; nocturna = 7:00 p. m.–6:00 a. m. (Ley 2466 de 2025). */
+const TODOS=[0,1,2,3,4,5,6,7], LV=[0,1,2,3,4], LS=[0,1,2,3,4,5];
+const mk=(dias,d,n,extra)=>{const h=DIAS.map((x,i)=>dias.includes(i)?[d,n]:[0,0]);if(extra)Object.keys(extra).forEach(k=>h[k]=extra[k]);return h;};
+const CATALOGO=[
+  {id:'24x7', g:'24 horas', t:'Todos los días', s:'Lun a dom y festivos · 24/7', label:'24 horas todos los días del mes (24/7)', h:mk(TODOS,13,11)},
+  {id:'24lv', g:'24 horas', t:'Lunes a viernes', s:'24 h continuas', label:'24 horas de lunes a viernes', h:mk(LV,13,11)},
+  {id:'24ls', g:'24 horas', t:'Lunes a sábado', s:'24 h continuas', label:'24 horas de lunes a sábado', h:mk(LS,13,11)},
+  {id:'12d', g:'12 horas', t:'Diurno · todos los días', s:'7:00 a. m. – 7:00 p. m.', label:'12 horas diurnas todos los días del mes', hora:'7:00 a. m. a 7:00 p. m.', h:mk(TODOS,12,0)},
+  {id:'12n', g:'12 horas', t:'Nocturno · todos los días', s:'7:00 p. m. – 7:00 a. m.', label:'12 horas nocturnas todos los días del mes', hora:'7:00 p. m. a 7:00 a. m.', h:mk(TODOS,1,11)},
+  {id:'12dlv', g:'12 horas', t:'Diurno · lunes a viernes', s:'7:00 a. m. – 7:00 p. m.', label:'12 horas diurnas de lunes a viernes', hora:'7:00 a. m. a 7:00 p. m.', h:mk(LV,12,0)},
+  {id:'12nlv', g:'12 horas', t:'Nocturno · lunes a viernes', s:'7:00 p. m. – 7:00 a. m.', label:'12 horas nocturnas de lunes a viernes', hora:'7:00 p. m. a 7:00 a. m.', h:mk(LV,1,11)},
+  {id:'12dls', g:'12 horas', t:'Diurno · lunes a sábado', s:'7:00 a. m. – 7:00 p. m.', label:'12 horas diurnas de lunes a sábado', hora:'7:00 a. m. a 7:00 p. m.', h:mk(LS,12,0)},
+  {id:'12nls', g:'12 horas', t:'Nocturno · lunes a sábado', s:'7:00 p. m. – 7:00 a. m.', label:'12 horas nocturnas de lunes a sábado', hora:'7:00 p. m. a 7:00 a. m.', h:mk(LS,1,11)},
+  {id:'12dlv4s', g:'12 horas', t:'Diurno L–V + 4 h sábado', s:'7 a. m.–7 p. m. · sáb. 7–11 a. m.', label:'12 horas diurnas de lunes a viernes y 4 horas los sábados', hora:'lunes a viernes de 7:00 a. m. a 7:00 p. m.; sábados de 7:00 a. m. a 11:00 a. m.', h:mk(LV,12,0,{5:[4,0]})},
+  {id:'8dlv', g:'8 horas', t:'Diurno · lunes a viernes', s:'7:00 a. m. – 3:00 p. m.', label:'8 horas diurnas de lunes a viernes', hora:'7:00 a. m. a 3:00 p. m.', h:mk(LV,8,0)},
+  {id:'8nlv', g:'8 horas', t:'Nocturno · lunes a viernes', s:'10:00 p. m. – 6:00 a. m.', label:'8 horas nocturnas de lunes a viernes', hora:'10:00 p. m. a 6:00 a. m.', h:mk(LV,0,8)},
+  {id:'8dls', g:'8 horas', t:'Diurno · lunes a sábado', s:'7:00 a. m. – 3:00 p. m.', label:'8 horas diurnas de lunes a sábado', hora:'7:00 a. m. a 3:00 p. m.', h:mk(LS,8,0)},
+  {id:'8nls', g:'8 horas', t:'Nocturno · lunes a sábado', s:'10:00 p. m. – 6:00 a. m.', label:'8 horas nocturnas de lunes a sábado', hora:'10:00 p. m. a 6:00 a. m.', h:mk(LS,0,8)},
+  {id:'16', g:'Cobertura extendida', t:'16 horas · todos los días', s:'6:00 a. m. – 10:00 p. m. (mixto)', label:'16 horas diurnas/mixtas todos los días del mes (cobertura parcial extendida)', hora:'6:00 a. m. a 10:00 p. m.', h:mk(TODOS,13,3)}
+];
+const servicio=id=>CATALOGO.find(s=>s.id===id)||null;
+const ZEROS=()=>DIAS.map(()=>[0,0]);
 
 const DEFAULTS={
   anio:2026, validez:30,
@@ -735,8 +827,8 @@ const DEFAULTS={
 };
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
 const QDEF=()=>({cliente:'',nit:'',contacto:'',direccion:'',ciudad:'San Juan de Pasto',numero:'COT-'+new Date().getFullYear()+'-'+String(Math.floor(Math.random()*9000)+1000),
-  fecha:today(),modalidad:'CON',tipo:'24h',periodo:'auto',puestos:1,meses:12,
-  horario:DIAS.map(()=>[13,11]),dias:1,diasFest:0,hdEv:13,hnEv:11,
+  fecha:today(),modalidad:'CON',tipo:'catalog',servicio:null,periodo:'auto',puestos:1,meses:12,
+  horario:ZEROS(),dias:1,diasFest:0,hdEv:0,hnEv:0,
   ajuste:'ninguno',descuento:0,acordado:0,guardasModo:'auto',guardas:4,
   aj:{salario:null,bonif:null,dotacion:null,relevos:null},margenObj:5,descSim:10});
 
@@ -747,6 +839,7 @@ function load(k,def){try{const s=localStorage.getItem(k);return s?merge(def,JSON
 function save(){try{localStorage.setItem(STORE_P,JSON.stringify(P));localStorage.setItem(STORE_Q,JSON.stringify(Q));}catch(e){}}
 let P=load(STORE_P,clone(DEFAULTS));
 let Q=load(STORE_Q,QDEF());
+if(Q.tipo==='24h'){Q.tipo='catalog';Q.servicio='24x7';}
 
 const getPath=(o,p)=>p.split('.').reduce((a,k)=>a==null?a:a[k],o);
 function setPath(o,p,v){const ks=p.split('.');let a=o;for(let i=0;i<ks.length-1;i++)a=a[ks[i]];a[ks[ks.length-1]]=v;}
@@ -770,7 +863,8 @@ function periodoDe(q){
 function modalidad(id){return P.modalidades.find(m=>m.id===id)||P.modalidades[0];}
 function horario(q){
   const c=P.diasMes, cnt=[c.semana,c.semana,c.semana,c.semana,c.semana,c.semana,c.dom,c.fest];
-  if(q.tipo==='24h') return DIAS.map((d,i)=>({dia:d,hd:P.hDiaMax,hn:P.hNocheMax,cnt:cnt[i],dom:i>=6}));
+  if(q.tipo==='catalog'){const s=servicio(q.servicio);const h=s?s.h:ZEROS();
+    return DIAS.map((d,i)=>({dia:d,hd:clamp(h[i][0],0,P.hDiaMax),hn:clamp(h[i][1],0,P.hNocheMax),cnt:cnt[i],dom:i>=6}));}
   if(q.tipo==='custom') return DIAS.map((d,i)=>({dia:d,hd:clamp(n0(q.horario[i][0]),0,P.hDiaMax),hn:clamp(n0(q.horario[i][1]),0,P.hNocheMax),cnt:cnt[i],dom:i>=6}));
   const tot=Math.max(0,Math.round(n0(q.dias))), fe=clamp(Math.round(n0(q.diasFest)),0,tot);
   const hd=clamp(n0(q.hdEv),0,P.hDiaMax), hn=clamp(n0(q.hnEv),0,P.hNocheMax);
@@ -780,7 +874,8 @@ function calcTarifa(q,per){
   const cd24=P.smmlv*per.factor+P.poliza*P.guardasPoliza;
   const vhD=cd24*P.pctDia/100/P.hDiaMax/30, vhN=cd24*P.pctNoche/100/P.hNocheMax/30;
   const h=horario(q);
-  let cd=q.tipo==='24h'?cd24:h.reduce((s,x)=>s+x.cnt*(x.hd*vhD+x.hn*vhN),0);
+  const es24x7=q.tipo==='catalog'&&q.servicio==='24x7';
+  let cd=es24x7?cd24:h.reduce((s,x)=>s+x.cnt*(x.hd*vhD+x.hn*vhN),0);
   cd=Math.round(cd);
   const mod=modalidad(q.modalidad), aiuP=mod.aiu/100;
   const aiu=Math.round(cd*aiuP), sub=cd+aiu, base=Math.round(sub*P.baseIVA/100), iva=Math.round(base*P.iva/100);
@@ -864,7 +959,10 @@ function compute(q){
 
 function descripcion(q,r){
   const mod=r.t.mod.nombre.toUpperCase();
-  if(q.tipo==='24h') return `Servicio de vigilancia y seguridad privada ${mod}, todo el mes, de lunes a domingo y festivos, 24 horas permanentes (${P.hDiaMax} horas diurnas – ${P.hNocheMax} horas nocturnas).`;
+  if(q.tipo==='catalog'){const s=servicio(q.servicio);if(!s)return '';
+    if(s.id==='24x7') return `Servicio de vigilancia y seguridad privada ${mod}: 24 horas todos los días del mes, de lunes a domingo y festivos (${P.hDiaMax} horas diurnas y ${P.hNocheMax} horas nocturnas).`;
+    const txt=`Servicio de vigilancia y seguridad privada ${mod}: ${s.label}${s.hora?`, en horario de ${s.hora}`:''}`;
+    return txt.endsWith('.')?txt:txt+'.';}
   if(q.tipo==='dias'){const x=r.t.h[0];return `Servicio de vigilancia y seguridad privada ${mod}, servicio eventual por ${n0(q.dias)} día(s)${n0(q.diasFest)>0?` (${n0(q.diasFest)} dominical/festivo)`:''}, ${x.hd} horas diurnas – ${x.hn} horas nocturnas por día.`;}
   const groups=[];r.t.h.forEach(x=>{const k=x.hd+'|'+x.hn;const g=groups[groups.length-1];if(x.hd+x.hn===0)return;if(g&&g.k===k&&g.last===DIAS.indexOf(x.dia)-1){g.to=x.dia;g.last++;}else groups.push({k,from:x.dia,to:x.dia,last:DIAS.indexOf(x.dia),hd:x.hd,hn:x.hn});});
   const txt=groups.map(g=>`${g.from===g.to?g.from:g.from+' a '+g.to}: ${g.hd} h diurnas – ${g.hn} h nocturnas`).join('; ');
@@ -874,6 +972,8 @@ function descripcion(q,r){
 /* ---------- Construcción de la interfaz ---------- */
 function buildStatic(){
   $('#segModalidad').innerHTML=P.modalidades.map(m=>`<button data-v="${esc(m.id)}">${esc(m.nombre)}<small>adm. ${nf(m.aiu)} %</small></button>`).join('');
+  const grupos=[...new Set(CATALOGO.map(s=>s.g))];
+  $('#catalog').innerHTML=grupos.map(g=>`<div class="catgroup"><h3>${g}</h3><div class="svcs">${CATALOGO.filter(s=>s.g===g).map(s=>`<button class="svc" data-svc="${s.id}" aria-pressed="false"><b>${s.t}</b><span>${s.s}</span></button>`).join('')}</div></div>`).join('');
   $('#q-periodo').innerHTML=`<option value="auto">Automático según la fecha</option>`+P.periodos.map((p,i)=>`<option value="${i}">${esc(p.nombre)} · factor ${nf(p.factor)}</option>`).join('');
   $('#days').innerHTML=DIAS.map((d,i)=>`<div class="day"><span class="dn">${d}<small>×${i<6?P.diasMes.semana:i===6?P.diasMes.dom:P.diasMes.fest} en el mes</small></span>
      <input type="number" inputmode="numeric" min="0" max="${P.hDiaMax}" step="1" data-h="${i}.0" aria-label="Horas diurnas ${d}" title="Horas diurnas">
@@ -901,8 +1001,21 @@ function render(){
   R=compute(Q);
   const {t,a,nom,u,per,idx}=R;
   setSeg('segModalidad',Q.modalidad);setSeg('segTipo',Q.tipo);setSeg('segAjuste',Q.ajuste);setSeg('segGuardas',Q.guardasModo);
+  $('#boxCatalog').style.display=Q.tipo==='catalog'?'':'none';
   $('#boxCustom').style.display=Q.tipo==='custom'?'':'none';
   $('#boxDias').style.display=Q.tipo==='dias'?'':'none';
+  $$('.svc').forEach(b=>{const on=Q.tipo==='catalog'&&b.dataset.svc===Q.servicio;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
+  const vacio=!(t.cd>0);
+  document.body.classList.toggle('empty',vacio);
+  // resumen del servicio elegido
+  const sv=Q.tipo==='catalog'?servicio(Q.servicio):null;
+  if(vacio) $('#svcSum').innerHTML='';
+  else{
+    const hd=nom.hDo+nom.hDd, hn=nom.hNo+nom.hNd;
+    $('#svcSum').innerHTML=`<span class="tt">${sv?esc(sv.label):Q.tipo==='custom'?'Horario personalizado':'Servicio eventual'}</span>
+      <span class="pill">☀ ${nf(hd,0)} h diurnas</span><span class="pill">☾ ${nf(hn,0)} h nocturnas</span><span class="pill">${nf(nom.fte,2)} guardas</span>
+      ${sv?'<button class="btn sm" id="btnAjustarHoras">Ajustar horas de este servicio</button>':''}`;
+  }
   $('#fMeses').style.display=Q.tipo==='dias'?'none':'';
   $('#ajFields').style.display=Q.ajuste==='ninguno'?'none':'';
   $('#fDesc').style.display=Q.ajuste==='descuento'?'':'none';
@@ -920,12 +1033,16 @@ function render(){
 
   const unidad=Q.tipo==='dias'?'Valor total del servicio':'Valor mensual por puesto';
   $('#resTitulo').textContent=unidad;
-  $('#resTotal').textContent=money(a.total);
-  $('#resSub').textContent=`IVA incluido · tarifa ${per.nombre} ${P.anio} · factor ${nf(per.factor)}`;
+  $('#resTotal').textContent=vacio?'$ 0':money(a.total);
+  $('#resSub').textContent=a.desc>0?`IVA y descuento del ${pc(a.desc,2)} incluidos`:`IVA incluido · tarifa ${per.nombre} ${P.anio} · factor ${nf(per.factor)}`;
+  // qué cubre ese valor: días y horas, para que no se confunda con un valor diario
+  const diasServ=t.h.reduce((s,x)=>s+(x.hd+x.hn>0?x.cnt:0),0);
+  $('#resChips').innerHTML=vacio?'':`<span>${Q.tipo==='dias'?'Pago único':'Pago mensual'}</span><span>${nf(diasServ,0)} días de servicio</span><span>${nf(nom.T,0)} horas</span>${diasServ>0?`<span>≈ ${money(a.total/diasServ)} por día</span>`:''}`;
   const lines=[['Costo directo',a.cd],[`Administración y supervisión ${nf(t.mod.aiu)} %`,a.aiu],['Valor antes de IVA',a.sub],[`IVA (${nf(P.iva)} % sobre el ${nf(P.baseIVA)} %)`,a.iva]];
-  let lh=lines.map(([l,v])=>`<div class="rline"><span>${l}</span><span>${money(v)}</span></div>`).join('');
-  lh+=`<div class="rline total"><span>Total</span><span>${money(a.total)}</span></div>`;
-  if(a.desc!==0) lh+=`<div class="rline"><span>Tarifa plena (mínimo legal)</span><span>${money(t.total)}</span></div><div class="rline"><span>${a.desc>0?'Descuento':'Valor por encima del mínimo'}</span><span>${pc(Math.abs(a.desc),2)}</span></div>`;
+  let lh='';
+  if(a.desc!==0) lh+=`<div class="rline"><span>Tarifa plena (mínimo legal)</span><span>${money(t.total)}</span></div><div class="rline"><span>${a.desc>0?`Descuento ${pc(a.desc,2)}`:'Valor por encima del mínimo'}</span><span>${a.desc>0?'−':'+'}${money(Math.abs(t.total-a.total))}</span></div><div class="rline sep"><span>Desglose del valor final</span><span></span></div>`;
+  lh+=lines.map(([l,v])=>`<div class="rline"><span>${l}</span><span>${money(v)}</span></div>`).join('');
+  lh+=`<div class="rline total"><span>${a.desc>0?'Total con descuento':'Total'}</span><span>${money(a.total)}</span></div>`;
   $('#resLines').innerHTML=lh;
   const totalMes=a.total*R.puestos;
   $('#resKpis').innerHTML=Q.tipo==='dias'
@@ -935,8 +1052,8 @@ function render(){
 
   // barra móvil
   $('#mbarL').textContent=unidad;
-  $('#mbarV').textContent=money(a.total);
-  $('#mbarM').textContent=pc(u.mUAI);
+  $('#mbarV').textContent=vacio?'Elija un servicio':money(a.total);
+  $('#mbarM').textContent=vacio?'—':pc(u.mUAI);
   $('#mbarM').style.color=u.uai<0?'#ff9b93':'#9fe3b8';
 
   const al=[];
@@ -1117,10 +1234,13 @@ function buildPrint(){
   <div class="r"><b>COTIZACIÓN ${esc(Q.numero)}</b><br>Fecha: ${fF(Q.fecha||today())}<br>Válida hasta: ${venc.toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'})}</div></div>
   <div class="pq-title">PROPUESTA DE SERVICIO DE VIGILANCIA Y SEGURIDAD PRIVADA</div>
   <div class="pq-grid"><div><b>Cliente:</b> ${esc(Q.cliente)||'—'}</div><div><b>NIT/C.C.:</b> ${esc(Q.nit)||'—'}</div><div><b>Contacto:</b> ${esc(Q.contacto)||'—'}</div><div><b>Ciudad:</b> ${esc(Q.ciudad)||'—'}</div><div><b>Dirección del puesto:</b> ${esc(Q.direccion)||'—'}</div><div><b>Modalidad:</b> ${esc(t.mod.nombre)}</div></div>
-  <div class="pq-desc">${esc(descripcion(Q,R))}</div>
+  <div class="pq-desc">${esc(descripcion(Q,R))}<br><b>${Q.tipo==='dias'?'Valor total del servicio':'Valor mensual'}</b>: cubre ${nf(t.h.reduce((s,x)=>s+(x.hd+x.hn>0?x.cnt:0),0),0)} días de servicio y ${nf(R.nom.T,0)} horas${Q.tipo==='dias'?'':' al mes'}.</div>
   <table class="pq"><thead><tr><th>Concepto</th><th style="text-align:right">Valor por puesto / ${unit}</th></tr></thead><tbody>
+  ${a.desc>0?`<tr><td>Valor del servicio según tarifa</td><td class="num">${money(t.total)}</td></tr>
+  <tr><td>Descuento comercial (${pc(a.desc,2)})</td><td class="num">−${money(t.total-a.total)}</td></tr>
+  <tr class="sub"><td colspan="2">Valor con descuento incluido</td></tr>`:''}
   ${rows.map(([l,v])=>`<tr><td>${l}</td><td class="num">${money(v)}</td></tr>`).join('')}
-  <tr class="tot"><td>TOTAL POR PUESTO / ${unit.toUpperCase()}</td><td class="num">${money(a.total)}</td></tr>
+  <tr class="tot"><td>TOTAL POR PUESTO / ${unit.toUpperCase()}${a.desc>0?' (DESCUENTO INCLUIDO)':''}</td><td class="num">${money(a.total)}</td></tr>
   ${R.puestos>1?`<tr><td>Número de puestos</td><td class="num">${R.puestos}</td></tr><tr class="tot"><td>TOTAL ${R.puestos} PUESTOS / ${unit.toUpperCase()}</td><td class="num">${money(a.total*R.puestos)}</td></tr>`:''}
   ${Q.tipo!=='dias'?`<tr><td>Valor estimado del contrato (${R.meses} meses)</td><td class="num">${money(a.total*R.puestos*R.meses)}</td></tr>`:''}
   </tbody></table>
@@ -1145,7 +1265,7 @@ const TXT=['cliente','nit','contacto','direccion','ciudad','numero','fecha','per
 document.addEventListener('input',e=>{
   const el=e.target;
   if(el.dataset.q){const k=el.dataset.q;Q[k]=TXT.includes(k)?el.value:n0(el.value);render();}
-  else if(el.dataset.h){const [i,j]=el.dataset.h.split('.');Q.horario[i][j]=n0(el.value);render();}
+  else if(el.dataset.h){const [i,j]=el.dataset.h.split('.');Q.horario[i][j]=n0(el.value);Q.servicio=null;render();}
   else if(el.dataset.aj){Q.aj[el.dataset.aj]=el.value===''?null:n0(el.value);render();}
   else if(el.dataset.p){const p=el.dataset.p,cur=getPath(P,p);
     const v=el.type==='checkbox'?el.checked:(typeof cur==='number'?n0(el.value):el.value);
@@ -1162,24 +1282,31 @@ document.addEventListener('click',e=>{
     if(id==='segModalidad')Q.modalidad=v;else if(id==='segTipo')Q.tipo=v;else if(id==='segAjuste')Q.ajuste=v;
     else if(id==='segGuardas'){Q.guardasModo=v;if(v==='manual')Q.guardas=Math.max(1,Math.ceil(R.nom.fte-1e-9));}
     fillInputs();render();return;}
-  const pr=e.target.closest('[data-preset]');
-  if(pr){const H=P.hDiaMax,N=P.hNocheMax,m={'24':i=>[H,N],'dia':i=>[H,0],'noche':i=>[0,N],'oficina':i=>i<5?[10,0]:i===5?[5,0]:[0,0],'finde':i=>i>=5?[H,N]:[0,0]}[pr.dataset.preset];
-    Q.horario=DIAS.map((d,i)=>m(i));fillInputs();render();}
+  const sv=e.target.closest('.svc');
+  if(sv){Q.tipo='catalog';Q.servicio=sv.dataset.svc;fillInputs();render();return;}
+  if(e.target.closest('#btnAjustarHoras')){const s=servicio(Q.servicio);if(s){Q.horario=s.h.map(x=>x.slice());Q.tipo='custom';fillInputs();render();toast('Ahora puede cambiar las horas de cada día');}return;}
+  if(e.target.closest('#btnCeros')){Q.horario=ZEROS();fillInputs();render();return;}
+  const go=e.target.closest('[data-go]');
+  if(go){e.preventDefault();goTab(go.dataset.go);return;}
 });
 $('#mbarBtn').addEventListener('click',()=>{goTab('cotizar');setTimeout(()=>$('#resCard').scrollIntoView({behavior:'smooth',block:'start'}),50);});
-$('#btnImprimir').addEventListener('click',()=>{buildPrint();window.print();});
-$('#btnNueva').addEventListener('click',()=>{const keep={modalidad:Q.modalidad,tipo:Q.tipo};Q=Object.assign(QDEF(),keep);fillInputs();render();toast('Nueva cotización lista');});
+$('#btnImprimir').addEventListener('click',()=>{if(document.body.classList.contains('empty')){toast('Primero elija un servicio');return;}buildPrint();window.print();});
+$('#btnNueva').addEventListener('click',()=>{
+  if(R&&R.t.cd>0&&!confirm('¿Empezar una cotización nueva? Se borran el servicio, las horas y los datos del cliente.'))return;
+  Q=Object.assign(QDEF(),{modalidad:Q.modalidad,tipo:Q.tipo==='dias'?'dias':Q.tipo==='custom'?'custom':'catalog'});
+  fillInputs();render();window.scrollTo({top:0,behavior:'smooth'});toast('Nueva cotización: todo en cero');});
 $('#btnAjReset').addEventListener('click',()=>{Q.aj={salario:null,bonif:null,dotacion:null,relevos:null};Q.guardasModo='auto';fillInputs();render();toast('Personal restablecido');});
 $('#btnAplicarDesc').addEventListener('click',()=>{Q.ajuste='descuento';Q.descuento=clamp(n0(Q.descSim),0,100);fillInputs();render();toast('Descuento aplicado a la cotización');});
 $('#btnCopiar').addEventListener('click',()=>{
   const {a,t,per}=R;
-  const txt=`${P.empresa.nombre} – Cotización ${Q.numero}\nCliente: ${Q.cliente||'—'}\n${descripcion(Q,R)}\nTarifa ${per.nombre} ${P.anio} (factor ${nf(per.factor)} SMMLV)\nCosto directo: ${money(a.cd)}\nAdministración y supervisión ${nf(t.mod.aiu)}%: ${money(a.aiu)}\nValor antes de IVA: ${money(a.sub)}\nIVA: ${money(a.iva)}\nTOTAL por puesto: ${money(a.total)}${R.puestos>1?`\nTotal ${R.puestos} puestos: ${money(a.total*R.puestos)}`:''}`;
+  if(document.body.classList.contains('empty')){toast('Primero elija un servicio');return;}
+  const txt=`${P.empresa.nombre} – Cotización ${Q.numero}\nCliente: ${Q.cliente||'—'}\n${descripcion(Q,R)}\nTarifa ${per.nombre} ${P.anio} (factor ${nf(per.factor)} SMMLV)${a.desc>0?`\nValor según tarifa: ${money(t.total)}\nDescuento comercial ${pc(a.desc,2)}: −${money(t.total-a.total)}`:''}\nCosto directo: ${money(a.cd)}\nAdministración y supervisión ${nf(t.mod.aiu)}%: ${money(a.aiu)}\nValor antes de IVA: ${money(a.sub)}\nIVA: ${money(a.iva)}\nTOTAL por puesto: ${money(a.total)}${R.puestos>1?`\nTotal ${R.puestos} puestos: ${money(a.total*R.puestos)}`:''}`;
   (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast('Resumen copiado'),()=>{prompt('Copie el resumen:',txt);});
 });
 $('#btnExport').addEventListener('click',()=>{const b=new Blob([JSON.stringify(P,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const l=document.createElement('a');l.href=u;l.download=`parametros_tarifador_${P.anio}.json`;l.click();setTimeout(()=>URL.revokeObjectURL(u),1000);});
 $('#fileImport').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{P=merge(clone(DEFAULTS),JSON.parse(r.result));buildStatic();render();toast('Parámetros importados');}catch(err){toast('Archivo no válido');}};r.readAsText(f);e.target.value='';});
 $('#btnReset').addEventListener('click',()=>{if(confirm('¿Restablecer todos los parámetros a los valores 2026?')){P=clone(DEFAULTS);buildStatic();render();toast('Parámetros restablecidos');}});
-window.addEventListener('beforeprint',()=>{if(R)buildPrint();});
+window.addEventListener('beforeprint',()=>{if(R&&!document.body.classList.contains('empty'))buildPrint();});
 
 // En escritorio, datos del cliente y comparativo abiertos; en celular, cerrados
 if(window.matchMedia('(min-width:721px)').matches){$('#cardCliente').open=true;}
